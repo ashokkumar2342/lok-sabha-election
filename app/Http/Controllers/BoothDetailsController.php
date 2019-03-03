@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\ACDetails;
 use App\BoothDetails;
+use App\PCDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +17,10 @@ class BoothDetailsController extends Controller
      */
     public function index()
     {
-        return view('admin.boothdetails.booth_details');
+         $boothdetails=BoothDetails::all();
+         $acdetails=ACDetails::all();
+         $pcdetails=PCDetails::all();
+        return view('admin.boothdetails.booth_details',compact('boothdetails','acdetails','pcdetails'));
     }
 
     /**
@@ -56,7 +61,7 @@ class BoothDetailsController extends Controller
           return response()->json($response);// response as json
       }
          
-         $boothdetails = new BoothDetails();
+        $boothdetails = new BoothDetails();
         $boothdetails->pc_code=$request->pc_code;
         $boothdetails->ac_code=$request->ac_code;
         $boothdetails->booth_no=$request->booth_no;
@@ -76,9 +81,10 @@ class BoothDetailsController extends Controller
      * @param  \App\BoothDetails  $boothDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(BoothDetails $boothDetails)
+    public function show()
     {
-        //
+         $boothdetails=BoothDetails::all();
+        return view('admin.boothdetails.booth_details_table',compact('boothdetails'))->render();
     }
 
     /**
@@ -87,9 +93,10 @@ class BoothDetailsController extends Controller
      * @param  \App\BoothDetails  $boothDetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(BoothDetails $boothDetails)
+    public function edit($id)
     {
-        //
+         $boothdetail=BoothDetails::find($id);
+        return view('admin.boothdetails.booth_details_edit',compact('boothdetail'));
     }
 
     /**
@@ -110,8 +117,12 @@ class BoothDetailsController extends Controller
      * @param  \App\BoothDetails  $boothDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BoothDetails $boothDetails)
+    public function destroy(BoothDetails $id)
     {
-        //
+        $id->delete();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Delete Successfully';
+        return $response;
     }
 }

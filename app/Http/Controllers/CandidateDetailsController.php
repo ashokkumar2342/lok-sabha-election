@@ -40,7 +40,7 @@ class CandidateDetailsController extends Controller
     {  
      $rules=[
 
-       'serial_number' => 'required',
+       'serial_number' => 'required|unique:candidate_details',
        "candidate_name" => 'required',
        "party_name" => 'required',
        "party_symbol" => 'required',
@@ -128,7 +128,10 @@ class CandidateDetailsController extends Controller
         $candidatedetail=CandidateDetails::find($id);
 
         $candidatedetail->delete();
-        return redirect()->back();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Delete Successfully';
+        return $response;
     }
 
 }

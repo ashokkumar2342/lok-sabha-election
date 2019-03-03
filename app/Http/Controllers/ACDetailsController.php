@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ACDetails;
+use App\PCDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,9 @@ class ACDetailsController extends Controller
      */
     public function index()
     {
-        return view('admin.acdetails.ac_details');
+        $acdetails=ACDetails::all();
+        $pcdetails=PCDetails::all();
+        return view('admin.acdetails.ac_details',compact('acdetails','pcdetails'));
     }
 
     /**
@@ -36,12 +39,11 @@ class ACDetailsController extends Controller
      */
     public function store(Request $request)
     {
-         $rules=[
-
+     $rules=[ 
        'pc_code' => 'required',
-       "ac_code" => 'required',
+       "ac_code" => 'required|unique:a_c_details',
        "ac_name" => 'required',
-       "aro_name" => 'required', 
+       "aro_name" => 'nullable|string', 
        ];
 
       $validator = Validator::make($request->all(),$rules);
@@ -73,7 +75,8 @@ class ACDetailsController extends Controller
      */
     public function show(ACDetails $aCDetails)
     {
-        //
+         $acdetails=ACDetails::all();
+        return view('admin.acdetails.ac_details_table',compact('acdetails'))->render();
     }
 
     /**
@@ -82,9 +85,11 @@ class ACDetailsController extends Controller
      * @param  \App\ACDetails  $aCDetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(ACDetails $aCDetails)
+    public function edit($id)
     {
-        //
+         $acdetail=ACDetails::find($id);
+         $pcdetails=PCDetails::all();
+        return view('admin.acdetails.ac_details_edit',compact('acdetail','pcdetails'));
     }
 
     /**
@@ -105,8 +110,13 @@ class ACDetailsController extends Controller
      * @param  \App\ACDetails  $aCDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ACDetails $aCDetails)
+    public function destroy($id)
     {
-        //
+        $acdetails=ACDetails::find($id);
+        $acdetails->delete();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Delete Successfully';
+        return $response;
     }
 }

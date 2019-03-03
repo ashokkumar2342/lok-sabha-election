@@ -21,7 +21,7 @@
       <td> 
        <a {{-- href="{{ route('candidate.edit') }}" --}} onclick="callPopupLarge(this,'{{ route('candidate.edit',$candidatedetail->id) }}')" title="Edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
       
-       <a href="{{ route('candidate.delete',$candidatedetail->id) }}" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+       <a href="#" success-popup="true" button-click="btn_candidate_show" onclick="callAjax(this,'{{ route('candidate.delete',$candidatedetail->id) }}')" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
       </td>
      
     </tr>

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>PC Details</h1>
+            <h1>AC Details</h1>
           </div>
            
         </div>
@@ -19,12 +19,17 @@
       <!-- Default box -->
       <div class="card"> 
         <div class="card-body">
-          <form class="add_form" action="{{ route('ac.store') }}" method="post">
+          <form class="add_form" action="{{ route('ac.store') }}" method="post" button-click="btn_ac_show">
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-3 form-group">
                 <label>PC Code</label>
-                <input type="text" class="form-control" maxlength="100" name="pc_code"> 
+                <select name="pc_code" class="form-control">
+                  <option selected="" disabled="">Select PC Code</option>
+                  @foreach ($pcdetails as $pcdetail)
+                     <option value="{{ $pcdetail->id}}">{{ $pcdetail->pc_code}}</option>
+                  @endforeach 
+                </select>
               </div>
               <div class="col-lg-3 form-group">
                 <label>AC Code</label>
@@ -51,38 +56,24 @@
       </div>
       <!-- /.card -->
        <!-- Default box -->
-     {{--  <div class="card"> 
-        <div class="card-body">
-           <table class="table" id="dataTables"> 
-             <thead> 
-               <tr>
-                 <th>Serial Number</th>
-                 <th>Candidate Name</th>
-                 <th>Party Name</th>
-                 <th>Party Symbol</th>
-                 <th>Remarks</th>
-               </tr> 
-             </thead>
-             <tbody>
-             
-               @foreach ($candidatedetails as $candidatedetail)
-                <tr>
-                 <td>{{ $candidatedetail->serial_number}}</td>
-                 <td>{{ $candidatedetail->candidate_name}}</td>
-                 <td>{{ $candidatedetail->party_name}}</td>
-                 <td>{{ $candidatedetail->party_symbol}}</td>
-                 <td>{{ $candidatedetail->remarks}}</td>
-               </tr>
-               @endforeach
-               
-             </tbody>
-           </table>
+        <button type="button" class="hidden" hidden id="btn_ac_show" data-table="dataTables"  onclick="callAjax(this,'{{ route('ac.details.show') }}','ac_details_table')">Show</button>
+
+      <div class="card"> 
+        <div class="card-body" id="ac_details_table">
+           
         </div>
         <!-- /.card-body --> 
-      </div> --}}
+      </div>
       <!-- /.card -->
 
     </section>
     <!-- /.content -->
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(window).on( "load", function() { 
+    $('#btn_ac_show').click();
+   }) 
+</script>
+@endpush

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>PC Details</h1>
+            <h1>Booth Details</h1>
           </div>
            
         </div>
@@ -19,16 +19,24 @@
       <!-- Default box -->
       <div class="card"> 
         <div class="card-body">
-          <form class="add_form" action="{{ route('booth.store') }}" method="post">
+          <form class="add_form" action="{{ route('booth.store') }}" method="post" button-click="btn_booth_show">
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-4 form-group">
                 <label>PC Code</label>
-                <input type="text" class="form-control" maxlength="100" name="pc_code"> 
+                <select name="pc_code" class="form-control">
+                  @foreach ($pcdetails as $pcdetail)
+                     <option value="{{ $pcdetail->id}}">{{ $pcdetail->pc_code}}</option>
+                  @endforeach 
+                </select> 
               </div>
               <div class="col-lg-4 form-group">
                 <label>AC Code</label>
-                <input type="text" class="form-control" maxlength="" name="ac_code"> 
+                 <select name="ac_code" class="form-control">
+                  @foreach ($acdetails as $acdetail)
+                     <option value="{{ $acdetail->id}}">{{ $acdetail->ac_code}}</option>
+                  @endforeach 
+                </select> 
               </div>
               <div class="col-lg-4 form-group">
                 <label>Booth No</label>
@@ -59,38 +67,23 @@
       </div>
       <!-- /.card -->
        <!-- Default box -->
-     {{--  <div class="card"> 
-        <div class="card-body">
-           <table class="table" id="dataTables"> 
-             <thead> 
-               <tr>
-                 <th>Serial Number</th>
-                 <th>Candidate Name</th>
-                 <th>Party Name</th>
-                 <th>Party Symbol</th>
-                 <th>Remarks</th>
-               </tr> 
-             </thead>
-             <tbody>
-             
-               @foreach ($candidatedetails as $candidatedetail)
-                <tr>
-                 <td>{{ $candidatedetail->serial_number}}</td>
-                 <td>{{ $candidatedetail->candidate_name}}</td>
-                 <td>{{ $candidatedetail->party_name}}</td>
-                 <td>{{ $candidatedetail->party_symbol}}</td>
-                 <td>{{ $candidatedetail->remarks}}</td>
-               </tr>
-               @endforeach
-               
-             </tbody>
-           </table>
+        <button type="button" class="hidden" hidden id="btn_booth_show" data-table="dataTables"  onclick="callAjax(this,'{{ route('booth.details.show') }}','booth_details_table')">Show</button>
+      <div class="card"> 
+        <div class="card-body" id="booth_details_table">
+          
         </div>
         <!-- /.card-body --> 
-      </div> --}}
+      </div>
       <!-- /.card -->
 
     </section>
     <!-- /.content -->
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(window).on( "load", function() { 
+    $('#btn_booth_show').click();
+   }) 
+</script>
+@endpush

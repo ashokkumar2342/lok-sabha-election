@@ -15,7 +15,9 @@ class PCDetailsController extends Controller
      */
     public function index()
     {
-        return view('admin.pcdetails.pc_details');
+        
+        $pcdetails=PCDetails::all();
+        return view('admin.pcdetails.pc_details',compact('pcdetails'));
     }
 
     /**
@@ -38,7 +40,7 @@ class PCDetailsController extends Controller
     {
          $rules=[
 
-       'pc_code' => 'required',
+       'pc_code' => 'required|unique:p_c_details',
        "pc_name" => 'required',
        "ro_name" => 'nullable', 
        ];
@@ -70,8 +72,9 @@ class PCDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(PCDetails $pCDetails)
-    {
-        //
+    {  
+         $pcdetails=PCDetails::all();
+        return view('admin.pcdetails.pc_details_table',compact('pcdetails'))->render();
     }
 
     /**
@@ -80,9 +83,10 @@ class PCDetailsController extends Controller
      * @param  \App\PCDetails  $pCDetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(PCDetails $pCDetails)
+    public function edit($id)
     {
-        //
+         $pcdetails=PCDetails::find($id);
+        return view('admin.pcdetails.pc_details_edit',compact('pcdetails'))->render();
     }
 
     /**
@@ -103,8 +107,13 @@ class PCDetailsController extends Controller
      * @param  \App\PCDetails  $pCDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PCDetails $pCDetails)
+    public function destroy($id)
     {
-        //
+        $pcdetails=PCDetails::find($id);
+        $pcdetails->delete();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Delete Successfully';
+        return $response;
     }
 }

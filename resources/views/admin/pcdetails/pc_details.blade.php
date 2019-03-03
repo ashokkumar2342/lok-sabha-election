@@ -19,7 +19,7 @@
       <!-- Default box -->
       <div class="card"> 
         <div class="card-body">
-          <form class="add_form" action="{{ route('pc.store') }}" method="post">
+          <form class="add_form" action="{{ route('pc.store') }}" method="post" button-click="btn_pc_show">
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-4 form-group">
@@ -47,38 +47,23 @@
       </div>
       <!-- /.card -->
        <!-- Default box -->
-     {{--  <div class="card"> 
-        <div class="card-body">
-           <table class="table" id="dataTables"> 
-             <thead> 
-               <tr>
-                 <th>Serial Number</th>
-                 <th>Candidate Name</th>
-                 <th>Party Name</th>
-                 <th>Party Symbol</th>
-                 <th>Remarks</th>
-               </tr> 
-             </thead>
-             <tbody>
-             
-               @foreach ($candidatedetails as $candidatedetail)
-                <tr>
-                 <td>{{ $candidatedetail->serial_number}}</td>
-                 <td>{{ $candidatedetail->candidate_name}}</td>
-                 <td>{{ $candidatedetail->party_name}}</td>
-                 <td>{{ $candidatedetail->party_symbol}}</td>
-                 <td>{{ $candidatedetail->remarks}}</td>
-               </tr>
-               @endforeach
-               
-             </tbody>
-           </table>
+        <button type="button" class="hidden" hidden id="btn_pc_show" data-table="dataTables"  onclick="callAjax(this,'{{ route('pc.details.show') }}','pc_details_table')">Show</button>
+      <div class="card"> 
+        <div class="card-body" id="pc_details_table">
+           
         </div>
         <!-- /.card-body --> 
-      </div> --}}
+      </div>
       <!-- /.card -->
 
     </section>
     <!-- /.content -->
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(window).on( "load", function() { 
+    $('#btn_pc_show').click();
+   }) 
+</script>
+@endpush

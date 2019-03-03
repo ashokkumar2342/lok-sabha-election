@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
  
- Route::group(['prefix' => 'dashboard'], function() {
+ Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
   Route::get('/', 'HomeController@index')->name('home');
 
   Route::group(['prefix' => 'condidate-details'], function() {
@@ -32,14 +32,27 @@ Auth::routes();
   Route::group(['prefix' => 'pc-details'], function() {
        Route::get('/', 'PCDetailsController@index')->name('pc.details');
        Route::post('store', 'PCDetailsController@store')->name('pc.store');
+       Route::get('show', 'PCDetailsController@show')->name('pc.details.show');
+       Route::get('edit/{id}', 'PCDetailsController@edit')->name('pc.details.edit');
+       Route::get('delete/{id}', 'PCDetailsController@destroy')->name('pc.details.delete');
+       Route::post('update/{id}', 'PCDetailsController@update')->name('pc.details.update');
   });
   Route::group(['prefix' => 'ac-details'], function() {
        Route::get('/', 'ACDetailsController@index')->name('ac.details');
        Route::post('store', 'ACDetailsController@store')->name('ac.store');
+       Route::get('show', 'ACDetailsController@show')->name('ac.details.show');
+       Route::get('edit/{id}', 'ACDetailsController@edit')->name('ac.details.edit');
+       Route::get('delete/{id}', 'ACDetailsController@destroy')->name('ac.details.delete');
+       Route::post('update/{id}', 'ACDetailsController@update')->name('ac.details.update');
+
   });
   Route::group(['prefix' => 'booth-details'], function() {
        Route::get('/', 'BoothDetailsController@index')->name('booth.details');
        Route::post('store', 'BoothDetailsController@store')->name('booth.store');
+       Route::get('show', 'BoothDetailsController@show')->name('booth.details.show');
+       Route::get('edit/{id}', 'BoothDetailsController@edit')->name('booth.details.edit');
+       Route::get('delete/{id}', 'BoothDetailsController@destroy')->name('booth.details.delete');
+       Route::post('update/{id}', 'BoothDetailsController@update')->name('booth.details.update');
   });
   
  });
