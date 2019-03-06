@@ -52,6 +52,24 @@
                     <span class="right badge badge-danger"></span>
                   </p>
                 </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{ route('conting.table') }}" class="nav-link">
+                  <i class="nav-icon fa fa-user"></i>
+                  <p>
+                    Conting Table
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('conting.table.booth.map') }}" class="nav-link">
+                  <i class="nav-icon fa fa-user"></i>
+                  <p>
+                    Conting Table Booth Map
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
               </li>
               
             </ul>

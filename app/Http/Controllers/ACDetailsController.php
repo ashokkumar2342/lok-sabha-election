@@ -99,9 +99,18 @@ class ACDetailsController extends Controller
      * @param  \App\ACDetails  $aCDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ACDetails $aCDetails)
+    public function update(Request $request,$id)
     {
-        //
+         $acdetails = ACDetails::find($id);
+        $acdetails->pc_code=$request->pc_code;
+        $acdetails->ac_code=$request->ac_code;
+        $acdetails->ac_name=$request->ac_name; 
+        $acdetails->aro_name=$request->aro_name; 
+        $acdetails->save();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Update Successfully';
+        return $response;              
     }
 
     /**

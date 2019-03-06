@@ -96,7 +96,9 @@ class BoothDetailsController extends Controller
     public function edit($id)
     {
          $boothdetail=BoothDetails::find($id);
-        return view('admin.boothdetails.booth_details_edit',compact('boothdetail'));
+           $acdetails=ACDetails::all();
+         $pcdetails=PCDetails::all();
+        return view('admin.boothdetails.booth_details_edit',compact('boothdetail','pcdetails','acdetails'));
     }
 
     /**
@@ -106,9 +108,20 @@ class BoothDetailsController extends Controller
      * @param  \App\BoothDetails  $boothDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BoothDetails $boothDetails)
+    public function update(Request $request,$id)
     {
-        //
+          $boothdetails = BoothDetails::find($id);
+        $boothdetails->pc_code=$request->pc_code;
+        $boothdetails->ac_code=$request->ac_code;
+         $boothdetails->booth_name=$request->booth_name;
+        $boothdetails->booth_no=$request->booth_no;
+        $boothdetails->booth_location=$request->booth_location;
+        $boothdetails->total_booth_pooled=$request->total_booth_pooled; 
+        $boothdetails->save();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Update Successfully';
+        return $response;              
     }
 
     /**

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\ACDetails;
+use App\BoothDetails;
+use App\CountingTable;
 use App\CountingTableBoothMap;
+use App\PCDetails;
 use Illuminate\Http\Request;
 
 class CountingTableBoothMapController extends Controller
@@ -14,7 +18,11 @@ class CountingTableBoothMapController extends Controller
      */
     public function index()
     {
-        //
+         $boothdetails=BoothDetails::all();
+         $countingtables=CountingTable::all();
+         $acdetails=ACDetails::all();
+        $pcdetails=PCDetails::all();
+        return view('admin.contingtableboothmap.conting_table_booth_map',compact('acdetails','pcdetails','countingtables','boothdetails'));
     }
 
     /**

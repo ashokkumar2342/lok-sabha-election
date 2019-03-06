@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Log in</title>
+  <title>Lok Sabha Election</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,41 +26,36 @@
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
-
-
-                         
-      <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+    <div class="card-body login-card-body"> 
+      <form class="form-horizontal" method="get" action="{{ route('ac.pc.table') }}">
                         {{ csrf_field() }}
-        <div class="input-group mb-3 {{ $errors->has('email') ? ' has-error' : '' }}">
-           <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus> 
-          <div class="input-group-append">
-              <span class="fa fa-envelope input-group-text"></span>
-          </div>
-          @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="input-group mb-3 {{ $errors->has('password') ? ' has-error' : '' }}">
-           <input id="password" type="password" class="form-control" name="password" required>
+        <div class="input-group mb-3">
+           
+          <select name="pc_code" class="form-control" >
 
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                @endif
-          <div class="input-group-append">
-              <span class="fa fa-lock input-group-text"></span>
+             <option selected="" disabled="">Select PC Code</option>  
+            @foreach ($pcdetails as $pcdetail)
+                <option value="{{ $pcdetail->id }}">{{ $pcdetail->pc_code }}</option>
+            @endforeach 
+          </select> 
           </div>
-        </div>
-        <div class="row">
-         
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+           <div class="input-group mb-3">
+             
+          <select name="ac_code" class="form-control" > 
+             <option selected="" disabled="">Select AC Code</option> 
+            @foreach ($acdetails as $acdetail)
+                <option value="{{ $acdetail->id }}">{{ $acdetail->ac_code }}</option>
+            @endforeach 
+          </select> 
+          </div>
+          <div class="input-group mb-3">
+           
+            <input type="text" name="table_no" class="form-control" placeholder="Enter Table No">
+          </div>
+          
+        <div class="row"> 
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-success">Submit</button>
           </div>
           <!-- /.col -->
         </div>

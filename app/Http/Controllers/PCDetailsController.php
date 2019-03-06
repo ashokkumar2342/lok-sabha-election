@@ -96,9 +96,18 @@ class PCDetailsController extends Controller
      * @param  \App\PCDetails  $pCDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PCDetails $pCDetails)
+    public function update(Request $request,$id)
     {
-        //
+        
+         $pcdetails = PCDetails::find($id);
+        $pcdetails->pc_code=$request->pc_code;
+        $pcdetails->pc_name=$request->pc_name;
+        $pcdetails->ro_name=$request->ro_name; 
+        $pcdetails->save();
+        $response=array();
+        $response["status"]=1;
+        $response["msg"]='Update Successfully';
+        return $response;              
     }
 
     /**

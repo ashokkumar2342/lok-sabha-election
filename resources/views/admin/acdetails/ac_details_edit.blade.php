@@ -9,32 +9,32 @@
 
      </div>
      <div class="modal-body">
-     	   <form class="add_form" action="{{ route('ac.details.update',$acdetail->id) }}" method="post" button-click="btn_ac_show">
+     	   <form class="add_form" action="{{ route('ac.details.update',$acdetail->id) }}" method="post" button-click="btn_ac_show,btn_close">
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-3 form-group">
                 <label>PC Code</label>
                 <select name="pc_code" class="form-control"> 
                   @foreach ($pcdetails as $pcdetail)
-                     <option value="{{ $pcdetail->id}}" {{ $acdetail->pc_code==$pcdetail->id?'selected':'' }}>{{ $pcdetail->pc_code}}</option>
+                     <option value="{{ $pcdetail->id}}" {{ $pcdetail->id==$acdetail->pc_code?'selected':'' }}>{{ $pcdetail->pc_code}}</option>
                   @endforeach 
                 </select>
                  
               </div>
               <div class="col-lg-3 form-group">
                 <label>AC Code</label>
-                <input type="text" class="form-control" maxlength="" name="ac_code"> 
+                <input type="text" class="form-control" value="{{ $acdetail->ac_code  }}" name="ac_code"> 
               </div>
               <div class="col-lg-3 form-group">
                 <label>AC Name</label>
-                <input type="text" class="form-control" maxlength="" name="ac_name"> 
+                <input type="text" class="form-control" value="{{ $acdetail->ac_name }}" name="ac_name"> 
               </div> 
                <div class="col-lg-3 form-group">
                 <label>ARO Name</label>
-                <input type="text" class="form-control" maxlength="" name="aro_name"> 
+                <input type="text" class="form-control" value="{{ $acdetail->aro_name }}" name="aro_name"> 
               </div> 
               <div class="col-lg-12 text-center form-group">
-                <input type="submit" class="btn btn-success">
+                <input type="submit" value="Update" class="btn btn-success">
               </div>
               
             </div>

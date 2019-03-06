@@ -12,10 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-
-Auth::routes();
+   
+    Route::get('acpctable', 'AcPcTableController@index')->name('ac.pc.table'); 
+    // Route::get('/', 'HomeController@index')->name('home'); 
+   
+ 
+Auth::routes(); 
 
  
  Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
@@ -53,6 +57,21 @@ Auth::routes();
        Route::get('edit/{id}', 'BoothDetailsController@edit')->name('booth.details.edit');
        Route::get('delete/{id}', 'BoothDetailsController@destroy')->name('booth.details.delete');
        Route::post('update/{id}', 'BoothDetailsController@update')->name('booth.details.update');
+  });
+  Route::group(['prefix' => 'conting-table'], function() {
+
+       Route::get('/', 'CountingTableController@index')->name('conting.table');
+       Route::post('store', 'CountingTableController@store')->name('conting.store');
+       Route::get('show', 'CountingTableController@show')->name('conting.table.show');
+       Route::get('edit/{id}', 'CountingTableController@edit')->name('conting.table.edit');
+       Route::get('delete/{id}', 'CountingTableController@destroy')->name('conting.table.delete');
+       Route::post('update/{id}', 'CountingTableController@update')->name('conting.table.update');
+  });
+  Route::group(['prefix' => 'conting-table-booth-map'], function() {
+
+        Route::get('/', 'CountingTableBoothMapController@index')->name('conting.table.booth.map');   
+        Route::get('store', 'CountingTableBoothMapController@store')->name('conting.table.booth.map.store');   
+        Route::get('show', 'CountingTableBoothMapController@show')->name('conting.table.booth.map.show');   
   });
   
  });

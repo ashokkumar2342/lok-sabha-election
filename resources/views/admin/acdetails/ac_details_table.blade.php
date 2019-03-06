@@ -13,7 +13,7 @@
   
     @foreach ($acdetails as $acdetail)
      <tr>
-      <td>{{ $acdetail->pc_code}}</td>
+      <td>{{ $acdetail->pcdetails->pc_code or ''}}</td>
       <td>{{ $acdetail->ac_code}}</td>
       <td>{{ $acdetail->ac_name}}</td>
       <td>{{ $acdetail->aro_name}}</td>

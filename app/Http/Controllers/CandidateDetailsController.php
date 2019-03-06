@@ -44,7 +44,7 @@ class CandidateDetailsController extends Controller
        "candidate_name" => 'required',
        "party_name" => 'required',
        "party_symbol" => 'required',
-       "remarks" => 'required',
+       "remarks" => 'nullable',
         
        ];
 

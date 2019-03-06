@@ -8,35 +8,43 @@
 
      </div>
      <div class="modal-body"> 
-       <form class="add_form" action="{{ route('booth.details.update',$boothdetail->id) }}" method="post" button-click="btn_booth_show">
+       <form class="add_form" action="{{ route('booth.details.update',$boothdetail->id) }}" method="post" button-click="btn_booth_show,btn_close">
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-4 form-group">
-                <label>PC Code</label>
-                <input type="text" class="form-control" maxlength="100" name="pc_code"> 
+                <label>PC Code</label> 
+                <select name="pc_code" class="form-control"> 
+                  @foreach ($pcdetails as $pcdetail)
+                     <option value="{{ $pcdetail->id}}" {{ $pcdetail->id==$boothdetail->pc_code?'selected':'' }}>{{ $pcdetail->pc_code}}</option>
+                  @endforeach 
+                </select> 
               </div>
               <div class="col-lg-4 form-group">
                 <label>AC Code</label>
-                <input type="text" class="form-control" maxlength="" name="ac_code"> 
+                 <select name="pc_code" class="form-control"> 
+                  @foreach ($acdetails as $acdetail)
+                     <option value="{{ $acdetail->id}}" {{ $acdetail->id==$boothdetail->ac_code?'selected':'' }}>{{ $acdetail->ac_code}}</option>
+                  @endforeach 
+                </select> 
               </div>
               <div class="col-lg-4 form-group">
                 <label>Booth No</label>
-                <input type="text" class="form-control" maxlength="" name="booth_no"> 
+                <input type="text" class="form-control" value="{{ $boothdetail->booth_no }}" name="booth_no"> 
               </div>
                <div class="col-lg-4 form-group">
                 <label>Booth Name</label>
-                <input type="text" class="form-control" maxlength="" name="booth_name"> 
+                <input type="text" class="form-control" value="{{ $boothdetail->booth_name }}" name="booth_name"> 
               </div>   
                <div class="col-lg-4 form-group">
                 <label>Booth Location</label>
-                <input type="text" class="form-control" maxlength="" name="booth_location"> 
+                <input type="text" class="form-control" value="{{ $boothdetail->booth_location }}" name="booth_location"> 
               </div> 
               <div class="col-lg-4 form-group">
                 <label>Total Booth Pooled</label>
-                <input type="text" class="form-control" maxlength="" name="total_booth_pooled"> 
+                <input type="text" class="form-control" value="{{ $boothdetail->total_booth_pooled }}" name="total_booth_pooled"> 
               </div> 
               <div class="col-lg-12 text-center form-group">
-                <input type="submit" class="btn btn-success">
+                <input type="submit" value="Update" class="btn btn-success">
               </div>
               
             </div>
