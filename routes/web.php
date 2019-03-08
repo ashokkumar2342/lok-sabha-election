@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
    
-    Route::get('acpctable', 'AcPcTableController@index')->name('ac.pc.table'); 
+    Route::get('login-vote-details', 'VoteDetailsController@index')->name('login.vode.details'); 
+    Route::get('create-vote-details', 'VoteDetailsController@create')->name('create.vote.details'); 
+    Route::post('store-vote-details/{id}', 'VoteDetailsController@store')->name('store.vote.details'); 
+    Route::get('candidate-vote-details/{id}', 'VoteDetailsController@candidateDetails')->name('candidate.vote.details'); 
+      
     // Route::get('/', 'HomeController@index')->name('home'); 
    
  

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>onting Table Booth Map</h1>
+            <h1>Conting Table Booth Map</h1>
           </div>
            
         </div>
@@ -63,7 +63,7 @@
                 <input type="text" name="round_no" class="form-control"> 
                </div> 
               <div class="col-lg-12 text-center form-group">
-                <input type="submit" class="btn btn-success">
+                <input type="submit"  class="btn btn-success">
               </div>
               
             </div>

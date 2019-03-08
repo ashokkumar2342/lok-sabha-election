@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{{ asset('dist/css/toastr.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <!-- iCheck -->
@@ -27,8 +28,8 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body"> 
-      <form class="form-horizontal" method="get" action="{{ route('ac.pc.table') }}">
-                        {{ csrf_field() }}
+      <form class="form-horizontal" method="get" action="{{ route('create.vote.details') }}">
+              
         <div class="input-group mb-3">
            
           <select name="pc_code" class="form-control" >
@@ -39,32 +40,40 @@
             @endforeach 
           </select> 
           </div>
-           <div class="input-group mb-3">
-             
+           <div class="input-group mb-3"> 
           <select name="ac_code" class="form-control" > 
              <option selected="" disabled="">Select AC Code</option> 
             @foreach ($acdetails as $acdetail)
                 <option value="{{ $acdetail->id }}">{{ $acdetail->ac_code }}</option>
             @endforeach 
           </select> 
-          </div>
-          <div class="input-group mb-3">
-           
-            <input type="text" name="table_no" class="form-control" placeholder="Enter Table No">
-          </div>
-          
+          </div> 
+          <div class="input-group mb-3"> 
+          <select name="table_no" class="form-control" > 
+             <option selected="" disabled="">Select Table No</option> 
+            @foreach ($countingtables as $countingtable)
+                <option value="{{ $countingtable->id }}">{{ $countingtable->table_no }}</option>
+            @endforeach 
+          </select> 
+          </div> 
         <div class="row"> 
           <div class="col-12 text-center">
-            <button type="submit" class="btn btn-success">Submit</button>
+            <input type="submit" value="Show" class="btn btn-success" >
+           
           </div>
           <!-- /.col -->
         </div>
       </form> 
        
-    </div>
-    <!-- /.login-card-body -->
+    </div>  
   </div>
-</div>
+ </div>
+ 
+  
+
+
+
+
 <!-- /.login-box -->
 
 <!-- jQuery -->
@@ -73,6 +82,9 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+ <script src="{{ asset('dist/js/common.js?ver=1') }}"></script>
+  <script src="{{ asset('dist/js/customscript.js?ver=1') }}"></script>
+  <script src="{{ asset('dist/js/toastr.min.js?ver=1') }}"></script>
 <script>
   $(function () {
     $('input').iCheck({

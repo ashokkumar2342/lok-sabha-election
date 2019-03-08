@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ACDetails;
 use App\BoothDetails;
+use App\CountingTable;
 use App\PCDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,10 +29,7 @@ class BoothDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
