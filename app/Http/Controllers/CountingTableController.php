@@ -19,29 +19,6 @@ class CountingTableController extends Controller
      */
     public function index()
     {
-        // $boothdetails=BoothDetails::all(); 
-        // $countingTables=CountingTable::all(); 
-        
-        //  $round =1;   
-        //  $table =$countingTables->count();   
-        //  $mult =$countingTables->count();    
-        //  $tableReset =0;    
-        // foreach ($boothdetails as $key => $value) {
-        //     $tableReset+=1;
-        //     if ($table==$key) { 
-        //        $round += 1;
-        //        $table= $mult * $round; 
-        //     }
-           
-
-        //  echo'key= '.$key.'round='.$round.'table='.$tableReset.'</br>'; 
-        //   if ($mult==$tableReset) {
-        //        $tableReset=0; 
-        //     } 
-            
-        // }
-        
-
         $countingtables=CountingTable::all(); 
         $acdetails=ACDetails::all();
         $pcdetails=PCDetails::all();
@@ -82,8 +59,13 @@ class CountingTableController extends Controller
           $response["msg"]=$errors[0];
           return response()->json($response);
       } 
-     
-
+      
+      //delete first 
+       for ($countingtable = 1; $countingtable <=$request->table_no; $countingtable++){   
+       $countingtables=CountingTable::where(['pc_code'=>$request->pc_code,'ac_code'=>$request->ac_code])->delete();  
+        
+       }
+       //insert
        for ($countingtable = 1; $countingtable <=$request->table_no; $countingtable++){   
        $countingtables=CountingTable::firstOrNew(['pc_code'=>$request->pc_code,'ac_code'=>$request->ac_code,'table_no'=>$countingtable]);
         $countingtables->pc_code=$request->pc_code;
@@ -91,7 +73,8 @@ class CountingTableController extends Controller
         $countingtables->table_no=$countingtable; 
         $countingtables->save();
         
-    }
+       }
+       //conting table function
     $this->contingTableBoothMap($request);
           
         $response=array();
@@ -102,7 +85,10 @@ class CountingTableController extends Controller
     }
 
     public function contingTableBoothMap($request){
-
+        //delete boothmap
+        $boothdetails=CountingTableBoothMap::where('pc_code',$request->pc_code)->
+                                    where('ac_code',$request->ac_code)->delete();
+        //insert booth details
         $boothdetails=BoothDetails::where('pc_code',$request->pc_code)->
                                     where('ac_code',$request->ac_code)->get(); 
         $countingTables=CountingTable::where('pc_code',$request->pc_code)->
@@ -124,6 +110,7 @@ class CountingTableController extends Controller
             $countingtableboothmap->table_no=$table_no;
             $countingtableboothmap->round_no=$round; 
             $countingtableboothmap->booth_no=$value->booth_no; 
+            $countingtableboothmap->status=0; 
             $countingtableboothmap->save(); 
          
          if ($mult==$table_no) {

@@ -17,8 +17,12 @@ Route::get('/', function () {
    
     Route::get('login-vote-details', 'VoteDetailsController@index')->name('login.vode.details'); 
     Route::get('create-vote-details', 'VoteDetailsController@create')->name('create.vote.details'); 
+    Route::get('search-ac', 'VoteDetailsController@searchAc')->name('search.ac'); 
+    Route::get('search-table', 'VoteDetailsController@searchTable')->name('search.table'); 
+    Route::get('vote.details.boothno.show/{pc_code}/{ac_code}/{table_no}', 'VoteDetailsController@boothNoShow')->name('vote.details.boothno.show'); 
     Route::post('store-vote-details/{id}', 'VoteDetailsController@store')->name('store.vote.details'); 
     Route::get('candidate-vote-details/{id}', 'VoteDetailsController@candidateDetails')->name('candidate.vote.details'); 
+    Route::get('logout', 'Auth\LoginController@logout');
       
     // Route::get('/', 'HomeController@index')->name('home'); 
    

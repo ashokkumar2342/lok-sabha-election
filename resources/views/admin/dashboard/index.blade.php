@@ -11,7 +11,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+               
             </ol>
           </div>
         </div>
@@ -34,11 +34,11 @@
           </div>
         </div>
         <div class="card-body">
-          Start creating your amazing application!
+         
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+         
         </div>
         <!-- /.card-footer-->
       </div>

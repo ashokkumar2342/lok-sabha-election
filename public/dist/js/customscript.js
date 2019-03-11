@@ -36,11 +36,21 @@ function callAjax(obj,url,divId,callback){
 
 				  });
 				
-				}
+			}
+			if(obj.getAttribute('data-excel'))
+			{ 
+			$("#"+obj.getAttribute('data-excel')).DataTable({ 
+				 
+				dom: 'Bfrtip',
+					buttons: [
+						'copy', 'csv', 'excel', 'pdf', 'print'
+					]
+			});
+			}
 				
 
 			
-			if(obj.getAttribute('button-click') && data.status==1)
+			if(obj.getAttribute('button-click'))
 			{	
 			var myStr = obj.getAttribute('button-click');
         	var strArray = myStr.split(",");

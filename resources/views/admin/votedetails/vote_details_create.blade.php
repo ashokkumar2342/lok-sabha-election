@@ -91,16 +91,12 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    
+    <button type="button" hidden id="btn_booth_no" button-click="booth_no154" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$request->pc_code,$request->ac_code,$request->table_no]) }}','div_booth_no')">Show</button>
  <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
-        <div class="row mb-12">  
-            <ol class="breadcrumb float-lg-right">
-              @foreach ($countingTableBoothMaps as $countingTableBoothMap)
-              <li class="breadcrumb-item" onclick="callAjax(this,'{{ route('candidate.vote.details',$countingTableBoothMap->id) }}','candidate_details_form')"><a href="#"><span class="badge bg-danger">{{ $countingTableBoothMap->booth_no }}</span> </a></li> 
-              @endforeach 
-            </ol> 
+        <div class="row mb-12" id="div_booth_no">  
+            
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -110,7 +106,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Title</h3> 
+          <h3 class="card-title">Round No</h3> 
           <div class="card-tools">
             
           </div>
@@ -303,12 +299,14 @@
   <script src="{{ asset('dist/js/toastr.min.js?ver=1') }}"></script>
 <script>
   $(function () {
+    $('#btn_booth_no').click();
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass   : 'iradio_square-blue',
       increaseArea : '20%' // optional
     })
   })
+
 </script>
 </body>
 </html>

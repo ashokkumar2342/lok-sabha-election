@@ -46,7 +46,7 @@
               </li> 
               <li class="nav-item">
                 <a href="{{ route('booth.details') }}" class="nav-link">
-                  <i class="nav-icon fa fa-user"></i>
+                  <i class="nav-icon fa fa-address-card"></i>
                   <p>
                     Booth Details
                     <span class="right badge badge-danger"></span>
@@ -55,7 +55,7 @@
               </li> 
               <li class="nav-item">
                 <a href="{{ route('conting.table') }}" class="nav-link">
-                  <i class="nav-icon fa fa-user"></i>
+                  <i class="nav-icon fa fa-table"></i>
                   <p>
                     Conting Table
                     <span class="right badge badge-danger"></span>

@@ -32,7 +32,7 @@
               
         <div class="input-group mb-3">
            
-          <select name="pc_code" class="form-control" >
+          <select name="pc_code" id="pc_code" class="form-control" onchange="callAjax(this,'{{ url('search-ac') }}','select_ac_div')">
 
              <option selected="" disabled="">Select PC Code</option>  
             @foreach ($pcdetails as $pcdetail)
@@ -40,20 +40,16 @@
             @endforeach 
           </select> 
           </div>
-           <div class="input-group mb-3"> 
+           <div class="input-group mb-3" id="select_ac_div"> 
           <select name="ac_code" class="form-control" > 
              <option selected="" disabled="">Select AC Code</option> 
-            @foreach ($acdetails as $acdetail)
-                <option value="{{ $acdetail->id }}">{{ $acdetail->ac_code }}</option>
-            @endforeach 
+             
           </select> 
           </div> 
-          <div class="input-group mb-3"> 
+          <div class="input-group mb-3" id="table_select"> 
           <select name="table_no" class="form-control" > 
              <option selected="" disabled="">Select Table No</option> 
-            @foreach ($countingtables as $countingtable)
-                <option value="{{ $countingtable->id }}">{{ $countingtable->table_no }}</option>
-            @endforeach 
+             
           </select> 
           </div> 
         <div class="row"> 

@@ -21,9 +21,8 @@ class VoteDetailsController extends Controller
     public function index()
     {
          $pcdetails=PCDetails::all();
-        $acdetails=ACDetails::all();
-        $countingtables=CountingTable::all();
-         return view('admin.votedetails.vote_details',compact('pcdetails','acdetails','countingtables'));
+        
+         return view('admin.votedetails.vote_details',compact('pcdetails'));
     }
 
     /**
@@ -38,7 +37,7 @@ class VoteDetailsController extends Controller
                                 ->where('ac_code',$request->ac_code)
                                 ->where('table_no',$request->table_no)->get();
 
-        return view('admin.votedetails.vote_details_create',compact('countingTableBoothMaps','candidatedetails'));
+        return view('admin.votedetails.vote_details_create',compact('countingTableBoothMaps','candidatedetails','request'));
     }
     //candidateDetails
    public function candidateDetails($countingTableBoothMap_id)
@@ -94,9 +93,30 @@ class VoteDetailsController extends Controller
      * @param  \App\VoteDetails  $voteDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(VoteDetails $voteDetails)
+    public function searchAc(Request $request)
     {
-        //
+        $acdetails=ACDetails::where('pc_code',$request->id)->get();
+        
+        return view('admin.votedetails.select_ac',compact('acdetails'))->render();
+    }
+
+    public function searchTable(Request $request)
+    {  
+      $countingtables=CountingTable::where('pc_code',$request->pc_code)->where('ac_code',$request->id)->get();
+       return view('admin.votedetails.select_table',compact('countingtables'))->render();
+    }
+
+    public function boothNoShow($pc_code,$ac_code,$table_no)
+    {  
+         
+      $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$pc_code)
+                                ->where('ac_code',$ac_code)
+                                ->where('table_no',$table_no)->get();
+          $response=array();
+          $response['status']=1;
+           return  view('admin.votedetails.booth_no_show',compact('countingTableBoothMaps','candidatedetails'));
+          
+        
     }
 
     /**
