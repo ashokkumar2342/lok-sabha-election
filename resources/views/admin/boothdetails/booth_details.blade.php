@@ -53,8 +53,8 @@
                 <input type="text" class="form-control"  name="booth_location"> 
               </div> 
               <div class="col-lg-4 form-group">
-                <label>Total Vote Pooled</label>
-                <input type="number" class="form-control"  name="total_booth_pooled"> 
+                <label>Total Vote Polled</label>
+                <input type="number" class="form-control"  name="total_vote_polled"> 
               </div> 
               <div class="col-lg-12 text-center form-group">
                 <input type="submit" class="btn btn-success">

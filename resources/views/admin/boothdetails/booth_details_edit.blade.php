@@ -40,8 +40,8 @@
                 <input type="text" class="form-control" value="{{ $boothdetail->booth_location }}" name="booth_location"> 
               </div> 
               <div class="col-lg-4 form-group">
-                <label>Total Booth Pooled</label>
-                <input type="text" class="form-control" value="{{ $boothdetail->total_booth_pooled }}" name="total_booth_pooled"> 
+                <label>Total Vote Pooled</label>
+                <input type="text" class="form-control" value="{{ $boothdetail->total_vote_pooled }}" name="total_booth_pooled"> 
               </div> 
               <div class="col-lg-12 text-center form-group">
                 <input type="submit" value="Update" class="btn btn-success">

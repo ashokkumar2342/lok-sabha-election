@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ACDetails;
+use App\BoothDetails;
 use App\CandidateDetails;
 use App\CountingTable;
 use App\CountingTableBoothMap;
@@ -44,8 +45,10 @@ class VoteDetailsController extends Controller
     {
       $candidatedetails = CandidateDetails::all();  
       $countingTableBoothMap=CountingTableBoothMap::find($countingTableBoothMap_id);
+      $boothDetail=BoothDetails::where(['pc_code'=>$countingTableBoothMap->pc_code,'ac_code'=>$countingTableBoothMap->ac_code,'booth_no'=>$countingTableBoothMap->booth_no])->first();
+     
 
-        return view('admin.votedetails.candidate_table_form',compact('countingTableBoothMap','candidatedetails'));
+        return view('admin.votedetails.candidate_table_form',compact('countingTableBoothMap','candidatedetails','boothDetail'));
     }
 
     /**
@@ -68,24 +71,38 @@ class VoteDetailsController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          }
+         if ($request->total==$request->total_vote_polled) {
+            $countingTableBoothMap=CountingTableBoothMap::find($countingTableBoothMap_id);
+            $countingTableBoothMap->status=1;
+            $countingTableBoothMap->update();
+
+          foreach ($request->candidate_id as $key => $value) {
+               $voteDetails = new VoteDetails();
+               $voteDetails->counting_table_booth_map_id=$countingTableBoothMap->id;
+               $voteDetails->pc_code=$countingTableBoothMap->pc_code;
+               $voteDetails->ac_code=$countingTableBoothMap->ac_code;
+               $voteDetails->table_no=$countingTableBoothMap->table_no;
+               $voteDetails->round_no=$countingTableBoothMap->round_no;
+               $voteDetails->booth_no=$countingTableBoothMap->booth_no;
+               $voteDetails->candidate_id=$value;
+               $voteDetails->vote_polled=$request->vote_polled[$key];
+               $voteDetails->status=1;
+               $voteDetails->save();
+               
+          }
+          
+          $response["status"]=1;
+          $response["msg"]='Save Successfully';
+          return response()->json($response);// response as json
+         } 
+          $response["status"]=0;
+          $response["msg"]='Total Vote Polled Not Match';
+          return response()->json($response);// response as json
          
-      $countingTableBoothMap=CountingTableBoothMap::find($countingTableBoothMap_id);
-      foreach ($request->candidate_id as $key => $value) {
-           $voteDetails = new VoteDetails();
-           $voteDetails->counting_table_booth_map_id=$countingTableBoothMap->id;
-           $voteDetails->pc_code=$countingTableBoothMap->pc_code;
-           $voteDetails->ac_code=$countingTableBoothMap->ac_code;
-           $voteDetails->table_no=$countingTableBoothMap->table_no;
-           $voteDetails->round_no=$countingTableBoothMap->round_no;
-           $voteDetails->booth_no=$countingTableBoothMap->booth_no;
-           $voteDetails->candidate_id=$value;
-           $voteDetails->vote_polled=$request->vote_polled[$key];
-           $voteDetails->save();
-           $response["status"]=1;
-           $response["msg"]='Save Successfully';
-           return response()->json($response);// response as json
-      }
+         
+        
     }
+
 
     /**
      * Display the specified resource.

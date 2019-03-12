@@ -46,7 +46,7 @@ class BoothDetailsController extends Controller
        "booth_no" => 'required',
        "booth_location" => 'required',
        "booth_name" => 'required',
-       "total_booth_pooled" => 'required',
+       "total_vote_polled" => 'required',
         
        ];
 
@@ -65,7 +65,7 @@ class BoothDetailsController extends Controller
         $boothdetails->booth_no=$request->booth_no;
         $boothdetails->booth_location=$request->booth_location;
         $boothdetails->booth_name=$request->booth_name;
-        $boothdetails->total_booth_pooled=$request->total_booth_pooled;
+        $boothdetails->total_vote_polled=$request->total_vote_polled;
         $boothdetails->save();
         $response=array();
         $response["status"]=1;
@@ -114,7 +114,7 @@ class BoothDetailsController extends Controller
          $boothdetails->booth_name=$request->booth_name;
         $boothdetails->booth_no=$request->booth_no;
         $boothdetails->booth_location=$request->booth_location;
-        $boothdetails->total_booth_pooled=$request->total_booth_pooled; 
+        $boothdetails->total_vote_polled=$request->total_vote_polled; 
         $boothdetails->save();
         $response=array();
         $response["status"]=1;

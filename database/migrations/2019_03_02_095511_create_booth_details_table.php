@@ -20,7 +20,7 @@ class CreateBoothDetailsTable extends Migration
             $table->string('booth_no')->nullable();
             $table->string('booth_location')->nullable();
             $table->string('booth_name')->nullable(); 
-            $table->string('total_booth_pooled')->nullable(); 
+            $table->string('total_vote_polled')->nullable(); 
             $table->timestamps();
         });
     }

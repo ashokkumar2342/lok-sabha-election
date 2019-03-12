@@ -91,7 +91,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <button type="button" hidden id="btn_booth_no" button-click="booth_no154" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$request->pc_code,$request->ac_code,$request->table_no]) }}','div_booth_no')">Show</button>
+    <button type="button" hidden id="btn_booth_no" button-click="booth_no182" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$request->pc_code,$request->ac_code,$request->table_no]) }}','div_booth_no')">Show</button>
  <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -104,16 +104,8 @@
     <!-- Main content -->
     <section class="content"> 
       <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Round No</h3> 
-          <div class="card-tools">
-            
-          </div>
-        </div>
-        <div class="card-body" id="candidate_details_form">
-    
-        </div>
+      <div class="card" id="candidate_details_form">
+        
         <!-- /.card-body -->
         
         <!-- /.card-footer-->
@@ -128,9 +120,9 @@
 
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.0-alpha
+      
     </div>
-    <strong>Copyright &copy; 2014-2018 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+    <strong>Copyright &copy; {{ date('Y') }} <a href="#"></a>.</strong> All rights
     reserved.
   </footer>
 
@@ -307,6 +299,17 @@
     })
   })
 
+</script>
+<script>
+ $(document).on("change", ".candidate_vote", function() {
+     var sum = 0;
+     $(".candidate_vote").each(function(){
+         sum += +$(this).val();
+     });
+     $(".condidate_total_vote").val(sum);
+      
+
+ });
 </script>
 </body>
 </html>

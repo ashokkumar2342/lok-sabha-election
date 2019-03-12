@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BoothDetails extends Model
 {
 	 protected $fillable = [
-       'ac_code', 'pc_code', 'booth_no', 'booth_name', 'booth_location', 'total_booth_pooled', 'created_at', 'updated_at'
+       'ac_code', 'pc_code', 'booth_no', 'booth_name', 'booth_location', 'total_vote_polled', 'created_at', 'updated_at'
     ];
 	 
 
