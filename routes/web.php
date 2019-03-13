@@ -22,6 +22,7 @@ Route::get('/', function () {
     Route::get('vote.details.boothno.show/{pc_code}/{ac_code}/{table_no}', 'VoteDetailsController@boothNoShow')->name('vote.details.boothno.show'); 
     Route::post('store-vote-details/{id}', 'VoteDetailsController@store')->name('store.vote.details'); 
     Route::get('candidate-vote-details/{id}', 'VoteDetailsController@candidateDetails')->name('candidate.vote.details'); 
+    Route::get('candidate-result', 'VoteDetailsController@candidateDetailsRoundFinsh')->name('candidate.vote.details.result'); 
     Route::get('logout', 'Auth\LoginController@logout');
       
     // Route::get('/', 'HomeController@index')->name('home'); 

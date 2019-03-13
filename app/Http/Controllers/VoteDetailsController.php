@@ -36,9 +36,9 @@ class VoteDetailsController extends Controller
       $candidatedetails = CandidateDetails::all();  
       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$request->pc_code)
                                 ->where('ac_code',$request->ac_code)
-                                ->where('table_no',$request->table_no)->get();
-
-        return view('admin.votedetails.vote_details_create',compact('countingTableBoothMaps','candidatedetails','request'));
+                                ->where('table_no',$request->table_no)->orderBy('round_no','asc')->get();
+     $activeBoothNo= $countingTableBoothMaps->where('status',0)->first();                       
+        return view('admin.votedetails.vote_details_create',compact('countingTableBoothMaps','candidatedetails','request','activeBoothNo'));
     }
     //candidateDetails
    public function candidateDetails($countingTableBoothMap_id)
@@ -50,6 +50,10 @@ class VoteDetailsController extends Controller
 
         return view('admin.votedetails.candidate_table_form',compact('countingTableBoothMap','candidatedetails','boothDetail'));
     }
+    public function candidateDetailsRoundFinsh()
+    { 
+        return view('admin.votedetails.round_finish');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -60,16 +64,17 @@ class VoteDetailsController extends Controller
     public function store(Request $request,$countingTableBoothMap_id)
     {
         $rules=[ 
-          'vote_polled' => 'required', 
+          'vote_polled.*' => 'required', 
           ];
 
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
-             $errors = $validator->errors()->all();
-             $response=array();
-             $response["status"]=0;
-             $response["msg"]=$errors[0];
-             return response()->json($response);// response as json
+             $errors = $validator->errors()->all(); 
+             return redirect()->back()->with(['message'=>'required vote polled field','class'=>'error']);
+             // $response=array();
+             // $response["status"]=0;
+             // $response["msg"]=$errors[0];
+             // return response()->json($response);// response as json
          }
          if ($request->total==$request->total_vote_polled) {
             $countingTableBoothMap=CountingTableBoothMap::find($countingTableBoothMap_id);
@@ -90,14 +95,15 @@ class VoteDetailsController extends Controller
                $voteDetails->save();
                
           }
-          
-          $response["status"]=1;
-          $response["msg"]='Save Successfully';
-          return response()->json($response);// response as json
+          return redirect()->back()->with(['message'=>'Save Successfully','class'=>'success']);
+          // $response["status"]=1;
+          // $response["msg"]='Save Successfully';
+          // return response()->json($response);// response as json
          } 
-          $response["status"]=0;
-          $response["msg"]='Total Vote Polled Not Match';
-          return response()->json($response);// response as json
+         return redirect()->back()->with(['message'=>'Total Vote Polled Not Match','class'=>'error']);
+          // $response["status"]=0;
+          // $response["msg"]='Total Vote Polled Not Match';
+          // return response()->json($response);// response as json
          
          
         

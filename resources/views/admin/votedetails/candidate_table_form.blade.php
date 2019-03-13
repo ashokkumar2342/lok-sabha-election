@@ -8,7 +8,7 @@
        </div>
      </div>
      <div class="card-body" >
-      <form action="{{ route('store.vote.details',$countingTableBoothMap->id) }}" class="add_form" method="post" accept-charset="utf-8" button-click="btn_booth_no">
+      <form action="{{ route('store.vote.details',$countingTableBoothMap->id) }}"  method="post">
        {{ csrf_field() }}  
       <input type="hidden" name="total_vote_polled" value="{{ $boothDetail->total_vote_polled }}">
        <table class="table table-responsive"> 
@@ -23,21 +23,21 @@
              <tbody>
               @php
                 $sumTotalVots =0;
-                $condidates ='';
+                $candidates ='';
               @endphp
                @foreach ($candidatedetails as $candidatedetail)
                 @php
                 if ($countingTableBoothMap->status==1) {
                   $voteDetail=App\VoteDetails::where(['pc_code'=>$countingTableBoothMap->pc_code,'ac_code'=>$countingTableBoothMap->ac_code,'booth_no'=>$countingTableBoothMap->booth_no,'table_no'=>$countingTableBoothMap->table_no,'round_no'=>$countingTableBoothMap->round_no,'candidate_id'=>$candidatedetail->id])->first();
                   $sumTotalVots +=$voteDetail->vote_polled;
-                  $condidates =$voteDetail->vote_polled;
+                  $candidates =$voteDetail->vote_polled;
                 }
                    
                 @endphp
                 <tr>
                  <td>
                    <input type="hidden" name="candidate_id[]" value="{{ $candidatedetail->id }}"  class="form-control input-lg">
-                   <input type="number" name="vote_polled[]" id="candidate_{{ $candidatedetail->id }}"  class="form-control input-lg candidate_vote" value="{{ $condidates }}">
+                   <input type="number" name="vote_polled[]" id="candidate_{{ $candidatedetail->id }}"  class="form-control input-lg candidate_vote" value="{{ $candidates }}" required="">
                  </td> 
                  <td>{{ $candidatedetail->serial_number}}</td>
                  <td>{{ $candidatedetail->candidate_name}}</td>
@@ -61,7 +61,7 @@
            </table>
            <div class="text-center">
             @if ($countingTableBoothMap->status==0)
-               <input type="submit" value="Save" id="btn_save_vote" class="btn btn-success">
+               <input type="submit" value="Save" id="btn_save_vote" class="btn btn-success" onclick="this.disabled=true;this.form.submit();" >
             @endif
             
            </div>

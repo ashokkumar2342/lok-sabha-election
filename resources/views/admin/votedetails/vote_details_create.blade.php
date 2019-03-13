@@ -11,14 +11,14 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+ {{--  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
   <link rel="stylesheet" href="{{ asset('dist/css/toastr.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  {{-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> --}}
   <style type="text/css" media="screen"> 
      .breadcrumb-item+.breadcrumb-item::before {
          display: inline-block;
@@ -91,7 +91,16 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <button type="button" hidden id="btn_booth_no" button-click="booth_no182" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$request->pc_code,$request->ac_code,$request->table_no]) }}','div_booth_no')">Show</button>
+    <div id="div_btn_booth_no">
+      @if ($activeBoothNo !=null)
+         <button type="button" hidden id="btn_booth_no" button-click="booth_no{{ $activeBoothNo->id }}" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$request->pc_code,$request->ac_code,$request->table_no]) }}','div_booth_no')">Show</button>
+         @else
+         <button type="button" hidden id="btn_booth_no" button-click="booth_no_finish" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$request->pc_code,$request->ac_code,$request->table_no]) }}','div_booth_no')">Show</button>
+      @endif
+
+      
+    </div>
+    
  <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -134,32 +143,9 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="http://localhost:8000/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="http://localhost:8000/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> 
-<script src="http://localhost:8000/plugins/datatables/jquery.dataTables.js"></script>
-<script src="http://localhost:8000/plugins/datatables/dataTables.bootstrap4.js"></script>
-<!-- SlimScroll -->
-<script src="http://localhost:8000/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 
-
-<!-- FastClick -->
-<script src="http://localhost:8000/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="http://localhost:8000/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="http://localhost:8000/dist/js/demo.js"></script>
- <script src="http://localhost:8000/dist/js/common.js?ver=1"></script>
-  <script src="http://localhost:8000/dist/js/customscript.js?ver=1"></script>
-  <script src="http://localhost:8000/dist/js/toastr.min.js?ver=1"></script>
   
- <script>
-  $(function () {
-    $('#dataTables').DataTable()
-     
-  })
-</script>
+
 <div id="ModalLargeId" class="modal fade" role="dialog" data-backdrop="static">
   <div class="modal-dialog  modal-lg" id="ModalLargeContentId" style="width:90%">
 
@@ -301,7 +287,7 @@
 
 </script>
 <script>
- $(document).on("change", ".candidate_vote", function() {
+ $(document).on("keyup", ".candidate_vote", function() {
      var sum = 0;
      $(".candidate_vote").each(function(){
          sum += +$(this).val();
@@ -311,5 +297,10 @@
 
  });
 </script>
+@if(Session::has('message')) 
+<script type="text/javascript">
+    Command: toastr["{{ Session::get('class') }}"]("{{ Session::get('message') }}");
+</script>
+@endif
 </body>
 </html>
