@@ -54,7 +54,7 @@
           </div> 
         <div class="row"> 
           <div class="col-12 text-center">
-            <input type="submit" value="Show" class="btn btn-success" >
+            <input type="submit" value="Login" class="btn btn-success" >
            
           </div>
           <!-- /.col -->
