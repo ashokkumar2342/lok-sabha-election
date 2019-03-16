@@ -10,7 +10,7 @@
      <div class="card-body" >
       <form action="{{ route('store.vote.details',$countingTableBoothMap->id) }}"  method="post">
        {{ csrf_field() }}  
-      <input type="hidden" name="total_vote_polled" value="{{ $boothDetail->total_vote_polled }}">
+      <input type="hidden" name="total_vote_polled" id="total_vote_polled" value="{{ $boothDetail->total_vote_polled }}">
        <table class="table table-responsive"> 
              <thead> 
                <tr>
@@ -36,8 +36,8 @@
                 @endphp
                 <tr>
                  <td>
-                   <input type="hidden" name="candidate_id[]" value="{{ $candidatedetail->id }}"  class="form-control input-lg">
-                   <input type="number" name="vote_polled[]" id="candidate_{{ $candidatedetail->id }}"  class="form-control input-lg candidate_vote" value="{{ $candidates }}" required="">
+                   <input type="hidden" name="candidate_id[]" value="{{ $candidatedetail->id }}"  class="form-control input-lg" required>
+                   <input type="number" name="vote_polled[]" id="candidate_{{ $candidatedetail->id }}"  class="form-control input-lg candidate_vote" value="{{ $candidates }}" required>
                  </td> 
                  <td>{{ $candidatedetail->serial_number}}</td>
                  <td>{{ $candidatedetail->candidate_name}}</td>
@@ -61,7 +61,7 @@
            </table>
            <div class="text-center">
             @if ($countingTableBoothMap->status==0)
-               <input type="submit" value="Save" id="btn_save_vote" class="btn btn-success" onclick="this.disabled=true;this.form.submit();" >
+               <input type="submit" value="Save" id="btn_save_vote" class="btn btn-success" onclick="this.disabled=true;this.form.submit();" style="display: none">
             @endif
             
            </div>

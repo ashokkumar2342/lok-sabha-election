@@ -286,14 +286,21 @@
   })
 
 </script>
-<script>
+<script> 
  $(document).on("keyup", ".candidate_vote", function() {
      var sum = 0;
      $(".candidate_vote").each(function(){
          sum += +$(this).val();
      });
-     $(".condidate_total_vote").val(sum);
-      
+    $(".condidate_total_vote").val(sum); 
+    var totalVotes= $(".condidate_total_vote").val(); 
+    var total_vote_polled= $("#total_vote_polled").val(); 
+    
+     if(totalVotes==total_vote_polled){
+         $('#btn_save_vote').show(400); 
+     }else{
+         $('#btn_save_vote').hide(400);
+     } 
 
  });
 </script>
