@@ -131,8 +131,8 @@
     <div class="float-right d-none d-sm-block">
       
     </div>
-    <strong>Copyright &copy; {{ date('Y') }} <a href="#"></a>.</strong> All rights
-    reserved.
+   {{--  <strong>Copyright &copy; {{ date('Y') }} <a href="#"></a>.</strong> All rights
+    reserved. --}}
   </footer>
 
   <!-- Control Sidebar -->
