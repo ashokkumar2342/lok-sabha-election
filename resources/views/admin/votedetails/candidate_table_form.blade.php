@@ -8,7 +8,7 @@
        </div>
      </div>
      <div class="card-body" >
-      <form action="{{ route('store.vote.details',$countingTableBoothMap->id) }}"  method="post">
+      <form action="{{ route('store.vote.details',$countingTableBoothMap->id) }}" id="form_vote_details"  method="post">
        {{ csrf_field() }}  
       <input type="hidden" name="total_vote_polled" id="total_vote_polled" value="{{ $boothDetail->total_vote_polled }}">
        <table class="table table-responsive"> 
@@ -59,7 +59,7 @@
                </tr>
              </tbody>
            </table>
-           <div class="text-center">
+           <div class="text-center" style="padding-bottom: 200px">
             @if ($countingTableBoothMap->status==0)
                <input type="submit" value="Save" id="btn_save_vote" class="btn btn-success" onclick="this.disabled=true;this.form.submit();" style="display: none">
             @endif

@@ -302,7 +302,7 @@
          $('#btn_save_vote').hide(400);
      } 
 
- });
+ }); 
 </script>
 @if(Session::has('message')) 
 <script type="text/javascript">
