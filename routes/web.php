@@ -62,6 +62,7 @@ Auth::routes();
   Route::group(['prefix' => 'booth-details'], function() {
        Route::get('/', 'BoothDetailsController@index')->name('booth.details');
        Route::post('store', 'BoothDetailsController@store')->name('booth.store');
+       Route::post('store-excel', 'BoothDetailsController@storeByExcel')->name('booth.store.excel');
        Route::get('show', 'BoothDetailsController@show')->name('booth.details.show');
        Route::get('edit/{id}', 'BoothDetailsController@edit')->name('booth.details.edit');
        Route::get('delete/{id}', 'BoothDetailsController@destroy')->name('booth.details.delete');

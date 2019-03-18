@@ -16,54 +16,92 @@
     <!-- Main content -->
     <section class="content">
 
+
       <!-- Default box -->
       <div class="card"> 
         <div class="card-body">
-          <form class="add_form" action="{{ route('booth.store') }}" method="post" button-click="btn_booth_show">
-            {{ csrf_field() }}
-            <div class="row">
-              <div class="col-lg-4 form-group">
-                <label>PC Code</label>
-                <select name="pc_code" class="form-control">
-                  <option selected="" disabled="">Select PC Code</option>
-                  @foreach ($pcdetails as $pcdetail)
-                     <option value="{{ $pcdetail->id}}">{{ $pcdetail->pc_code}}</option>
-                  @endforeach 
-                </select> 
-              </div>
-              <div class="col-lg-4 form-group">
-                <label>AC Code</label>
-                 <select name="ac_code" class="form-control">
-                  <option selected="" disabled="">Select AC Code</option>
-                  @foreach ($acdetails as $acdetail)
-                     <option value="{{ $acdetail->id}}">{{ $acdetail->ac_code}}</option>
-                  @endforeach 
-                </select> 
-              </div>
-              <div class="col-lg-4 form-group">
-                <label>Booth No</label>
-                <input type="text" class="form-control"  name="booth_no"> 
-              </div>
-               <div class="col-lg-4 form-group">
-                <label>Booth Name</label>
-                <input type="text" class="form-control"  name="booth_name"> 
-              </div>   
-               <div class="col-lg-4 form-group">
-                <label>Booth Location</label>
-                <input type="text" class="form-control"  name="booth_location"> 
-              </div> 
-              <div class="col-lg-4 form-group">
-                <label>Total Vote Polled</label>
-                <input type="number" class="form-control"  name="total_vote_polled"> 
-              </div> 
-              <div class="col-lg-12 text-center form-group">
-                <input type="submit" class="btn btn-success">
-              </div>
-              
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#manual">Manual</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#excel">By Excel</a>
+            </li>
+             
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane container active" id="manual">
+              <form class="add_form" action="{{ route('booth.store') }}" method="post" button-click="btn_booth_show">
+                {{ csrf_field() }}
+                <div class="row">
+                  <div class="col-lg-4 form-group">
+                    <label>PC Code</label>
+                    <select name="pc_code" class="form-control">
+                      <option selected="" disabled="">Select PC Code</option>
+                      @foreach ($pcdetails as $pcdetail)
+                         <option value="{{ $pcdetail->id}}">{{ $pcdetail->pc_code}}</option>
+                      @endforeach 
+                    </select> 
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <label>AC Code</label>
+                     <select name="ac_code" class="form-control">
+                      <option selected="" disabled="">Select AC Code</option>
+                      @foreach ($acdetails as $acdetail)
+                         <option value="{{ $acdetail->id}}">{{ $acdetail->ac_code}}</option>
+                      @endforeach 
+                    </select> 
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <label>Booth No</label>
+                    <input type="text" class="form-control"  name="booth_no"> 
+                  </div>
+                   <div class="col-lg-4 form-group">
+                    <label>Booth Name</label>
+                    <input type="text" class="form-control"  name="booth_name"> 
+                  </div>   
+                   <div class="col-lg-4 form-group">
+                    <label>Booth Location</label>
+                    <input type="text" class="form-control"  name="booth_location"> 
+                  </div> 
+                  <div class="col-lg-4 form-group">
+                    <label>Total Vote Polled</label>
+                    <input type="number" class="form-control"  name="total_vote_polled"> 
+                  </div> 
+                  <div class="col-lg-12 text-center form-group">
+                    <input type="submit" class="btn btn-success">
+                  </div>
+                  
+                </div>
+                 
+                 
+              </form>
             </div>
-             
-             
-          </form>
+            <div class="tab-pane container fade" id="excel">
+              <form class="add_form" error-popup="true" action="{{ route('booth.store.excel') }}" method="post" button-click="btn_booth_show">
+                {{ csrf_field() }}
+                <div class="row">
+                   
+                  <div class="col-lg-4 form-group">
+                     
+                    <input type="file" name="file" class="form-control" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  name="booth_no"> 
+                  </div>
+                   
+                  <div class="col-lg-4 form-group">
+                 
+                    <input type="submit"  class="btn btn-success btn-xs">
+                  </div>
+                  
+                </div>
+                 
+                 
+              </form>
+            </div> 
+          </div>
+         
         </div>
         <!-- /.card-body --> 
       </div>

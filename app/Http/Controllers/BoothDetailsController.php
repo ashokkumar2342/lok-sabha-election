@@ -7,7 +7,10 @@ use App\BoothDetails;
 use App\CountingTable;
 use App\PCDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
 
 class BoothDetailsController extends Controller
 {
@@ -46,7 +49,7 @@ class BoothDetailsController extends Controller
        "booth_no" => 'required',
        "booth_location" => 'required',
        "booth_name" => 'required',
-       "total_vote_polled" => 'required',
+       "total_vote_polled" => 'nullable',
         
        ];
 
@@ -71,6 +74,142 @@ class BoothDetailsController extends Controller
         $response["status"]=1;
         $response["msg"]='Save Successfully';
         return $response;
+    }
+
+    public function storeByExcel(Request $request){   
+        try{  
+             $rules=[ 
+             'file' => 'required|mimes:xlsx',
+             ];
+             $validator = Validator::make($request->all(),$rules);
+             if($validator->fails()){
+                 $errors = $validator->errors()->all();
+                 $response=array();
+                 $response["status"]=0;
+                 $response["msg"]=$errors[0];
+                 return response()->json($response);// response as json
+             }
+             //upload file
+             $files = $request->file('file'); 
+             $files->store('booth_details');
+             //upload data
+             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+             $spreadsheet = $reader->load($request->file('file')->getRealPath());
+             $sheetData = $spreadsheet->getActiveSheet()->toArray(); 
+             $notImportedData=array();
+               $count_all=0;
+               $count_ins=0;
+               $count_exits=0;
+               $responseError=array();
+             $header_array=array("PC Code","AC Code","Booth No","Booth Name","Booth Location","Total Vote Polled");
+             $header_array = array_map('strtoupper', $header_array);
+
+             foreach($sheetData as $va=>$key){ 
+                 if ($va == 0) { 
+                    foreach($key as $hc)
+                    {
+                      if(!in_array(trim(strtoupper($hc)), $header_array) && $hc!='')
+                         {                     
+                          $response=array();
+                          $response["status"]=0;
+                          $response["msg"]=$hc." Sheet header name is invalid";
+                          return response()->json($response);// response as json
+                          }
+                     }
+                     continue;
+                 }else{
+                     $error="";
+                     $rules=[
+                     '0' => 'required|numeric',
+                     '1' => 'required|numeric',
+                     '2' => 'required|numeric',
+                     '3' => 'required|string', 
+                     '4' => 'required|string', 
+                     '5' => 'nullable|numeric', 
+                     ];
+                     
+                    $messages=array();
+                    foreach($header_array as $kk=>$kkvalue)
+                    {
+                      $messages[$kk.".required"]="$kkvalue is required";
+                      $messages[$kk.".numeric"]="$kkvalue is numeric";
+                      $messages[$kk.".string"]="$kkvalue is string";
+                      
+                    } 
+                    $validator = Validator::make($key,$rules,$messages);
+                    if($validator->fails()){
+                       $errors = $validator->errors()->all(); 
+                      $responseError[$va]=$errors;
+                    } 
+                 } 
+             }
+             if ($responseError!=null) {
+               $response['msg']= view('include.errorMessage',compact('responseError'))->render();
+             
+               $response["status"]=0;
+               return response()->json($response);// response as json
+             }else{
+
+                 foreach($sheetData as $va=>$key){
+                     if ($va == 0) {
+                         foreach($key as $hc)
+                         {
+                           if(!in_array(trim(strtoupper($hc)), $header_array) && $hc!='')
+                           {
+                               $response=array();
+                               $response["status"]=0;
+                               $response["msg"]="Sheet is invalid";
+                               return response()->json($response);// response as json
+                           }
+                         }
+                         continue;
+                     }
+
+                     $count_all++; 
+                     $error=""; 
+                     $valid = BoothDetails::where('pc_code',$key[0])->where('ac_code',$key[1])->where('booth_no',$key[2])->exists();
+                     if($valid){                   
+                      $response=array();
+                      $response["status"]=0;
+                      $response["msg"]="Already Exists";
+                      $count_exits++;
+                     }    
+                     else{
+                       $boothDetails = new BoothDetails();
+                       $ins = array();
+                       $ins['pc_code'] = $key[0];
+                       $ins['ac_code'] =$key[1];
+                       $ins['booth_no'] =$key[2];
+                       $ins['booth_name'] =$key[3];
+                       $ins['booth_location'] =$key[4];                       
+                       $ins['total_vote_polled'] =$key[5]; 
+                       
+                      
+                       $boothDetails->insertGetId($ins);
+                       if($ins!='')
+                        {
+                          $count_ins++;
+                        }
+                     }
+                     if($error!=""){
+                         $key["error"]=$error;
+                         $notImportedData[]=$key;
+                     }                     
+                 }  
+                  
+               $response=array();
+               $response["status"]=1;
+               $response["msg"]= "Unique  Inserted = ".$count_ins.'</br> Duplicate Rejected = '.$count_exits;
+                
+               return response()->json($response);// response as json
+                   
+             } 
+              
+            }catch(\Exception $e){
+            Log::error('act defination upload: '.$e->getMessage());      // making log in file
+            return view('error.home');                                  // showing the err page
+         
+        }
     }
 
     /**
