@@ -24,20 +24,13 @@
             <div class="row">
               <div class="col-lg-4 form-group">
                 <label>PC Code</label>
-                <select name="pc_code" class="form-control">
-                  <option selected="" disabled="">Select PC Code</option>
-                  @foreach ($pcdetails as $pcdetail)
-                     <option value="{{ $pcdetail->id}}">{{ $pcdetail->pc_code}}</option>
-                  @endforeach 
-                </select>
+                 @include('include.select_pc')
               </div>
               <div class="col-lg-4 form-group">
                 <label>AC Code</label>
-                <select name="ac_code" class="form-control">
+                <select name="ac_code" class="form-control" id="select_ac_div">
                   <option selected="" disabled="">Select AC Code</option>
-                  @foreach ($acdetails as $acdetail)
-                     <option value="{{ $acdetail->id}}">{{ $acdetail->pc_code}}</option>
-                  @endforeach 
+                   
                 </select> 
               </div>
               <div class="col-lg-4 form-group">

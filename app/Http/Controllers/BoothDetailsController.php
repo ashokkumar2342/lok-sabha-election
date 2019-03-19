@@ -224,6 +224,18 @@ class BoothDetailsController extends Controller
         return view('admin.boothdetails.booth_details_table',compact('boothdetails'))->render();
     }
 
+    public function showFilter(Request $request)
+    {
+         $boothdetails=BoothDetails::where('pc_code',$request->pc_code)
+                                          ->where('ac_code',$request->ac_code)
+                                          ->get(); 
+        $array=array();
+        $array['status']=1;
+        $array['msg']='ss';
+        $array['data']= view('admin.boothdetails.booth_details_table',compact('boothdetails'))->render();
+        return $array;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

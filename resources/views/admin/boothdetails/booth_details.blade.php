@@ -28,46 +28,40 @@
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#excel">By Excel</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#show">Show</a>
+            </li>
              
           </ul>
 
           <!-- Tab panes -->
-          <div class="tab-content">
+          <div class="tab-content" style="padding-top: 15px;">
             <div class="tab-pane container active" id="manual">
-              <form class="add_form" action="{{ route('booth.store') }}" method="post" button-click="btn_booth_show">
+              <form class="add_form" action="{{ route('booth.store') }}" data-table="dataTables" method="post" button-click="btn_booth_show">
                 {{ csrf_field() }}
                 <div class="row">
-                  <div class="col-lg-4 form-group">
-                    <label>PC Code</label>
-                    <select name="pc_code" class="form-control">
-                      <option selected="" disabled="">Select PC Code</option>
-                      @foreach ($pcdetails as $pcdetail)
-                         <option value="{{ $pcdetail->id}}">{{ $pcdetail->pc_code}}</option>
-                      @endforeach 
-                    </select> 
-                  </div>
-                  <div class="col-lg-4 form-group">
-                    <label>AC Code</label>
-                     <select name="ac_code" class="form-control">
-                      <option selected="" disabled="">Select AC Code</option>
-                      @foreach ($acdetails as $acdetail)
-                         <option value="{{ $acdetail->id}}">{{ $acdetail->ac_code}}</option>
-                      @endforeach 
-                    </select> 
-                  </div>
-                  <div class="col-lg-4 form-group">
+                <div class="col-lg-6 form-group"> 
+                  @include('include.select_pc')
+                </div>
+                <div class="col-lg-6 form-group" id="select_ac_div">             
+                   <select name="ac_code" class="form-control" > 
+                      <option selected="" disabled="">Select AC Code</option> 
+                      
+                   </select> 
+                </div>
+                  <div class="col-lg-3 form-group">
                     <label>Booth No</label>
                     <input type="text" class="form-control"  name="booth_no"> 
                   </div>
-                   <div class="col-lg-4 form-group">
+                   <div class="col-lg-3 form-group">
                     <label>Booth Name</label>
                     <input type="text" class="form-control"  name="booth_name"> 
                   </div>   
-                   <div class="col-lg-4 form-group">
+                   <div class="col-lg-3 form-group">
                     <label>Booth Location</label>
                     <input type="text" class="form-control"  name="booth_location"> 
                   </div> 
-                  <div class="col-lg-4 form-group">
+                  <div class="col-lg-3 form-group">
                     <label>Total Vote Polled</label>
                     <input type="number" class="form-control"  name="total_vote_polled"> 
                   </div> 
@@ -83,10 +77,8 @@
             <div class="tab-pane container fade" id="excel">
               <form class="add_form" error-popup="true" action="{{ route('booth.store.excel') }}" method="post" button-click="btn_booth_show">
                 {{ csrf_field() }}
-                <div class="row">
-                   
-                  <div class="col-lg-4 form-group">
-                     
+                <div class="row"> 
+                  <div class="col-lg-4 form-group"> 
                     <input type="file" name="file" class="form-control" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  name="booth_no"> 
                   </div>
                    
@@ -99,6 +91,30 @@
                  
                  
               </form>
+            </div> 
+            <div class="tab-pane container fade" id="show">
+             <form class="add_form" action="{{ route('booth.show') }}" success-content-id="booth_details_table" method="post" data-table-without-pagination="dataTables">
+               {{ csrf_field() }}
+               <div class="row">
+                 <div class="col-lg-4 form-group">
+                 
+                   @include('include.select_pc')
+                 </div>
+                 <div class="col-lg-4 form-group" id="select_ac_div">             
+                    <select name="ac_code" class="form-control" > 
+                       <option selected="" disabled="">Select AC Code</option> 
+                       
+                    </select> 
+                 </div>
+                  
+                 <div class="col-lg-4 form-group">
+                   <input type="submit" value="Show" class="btn btn-success">
+                 </div>
+                 
+               </div>
+                
+                
+             </form>
             </div> 
           </div>
          

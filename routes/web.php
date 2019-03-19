@@ -64,6 +64,7 @@ Auth::routes();
        Route::post('store', 'BoothDetailsController@store')->name('booth.store');
        Route::post('store-excel', 'BoothDetailsController@storeByExcel')->name('booth.store.excel');
        Route::get('show', 'BoothDetailsController@show')->name('booth.details.show');
+       Route::post('show-filter', 'BoothDetailsController@showFilter')->name('booth.show');
        Route::get('edit/{id}', 'BoothDetailsController@edit')->name('booth.details.edit');
        Route::get('delete/{id}', 'BoothDetailsController@destroy')->name('booth.details.delete');
        Route::post('update/{id}', 'BoothDetailsController@update')->name('booth.details.update');
