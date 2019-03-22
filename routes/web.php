@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
    
-    Route::get('login-vote-details', 'VoteDetailsController@index')->name('login.vode.details'); 
+    Route::post('admin-login-vote-details', 'VoteDetailsController@adminLoginVoteDetails')->name('admin.login.vote.details'); 
+    Route::get('admin-logout-vote-details', 'VoteDetailsController@adminLogoutVoteDetails')->name('admin.logout.vote.details'); 
+    Route::get('login-vote-details', 'VoteDetailsController@index')->name('login.vote.details'); 
     Route::get('create-vote-details', 'VoteDetailsController@create')->name('create.vote.details'); 
     Route::get('search-ac', 'VoteDetailsController@searchAc')->name('search.ac'); 
     Route::get('search-table', 'VoteDetailsController@searchTable')->name('search.table'); 

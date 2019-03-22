@@ -44,7 +44,7 @@
     <ul class="navbar-nav ml-auto">
        
       <li class="nav-item">
-        <a class="nav-link"   href="{{ route('login.vode.details') }}">
+        <a class="nav-link"   href="{{ route('login.vote.details') }}">
           <i class="fa fa fa-sign-out"></i>
         </a>
       </li>

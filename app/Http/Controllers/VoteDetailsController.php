@@ -8,8 +8,11 @@ use App\CandidateDetails;
 use App\CountingTable;
 use App\CountingTableBoothMap;
 use App\PCDetails;
+use App\User;
 use App\VoteDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class VoteDetailsController extends Controller
@@ -24,6 +27,30 @@ class VoteDetailsController extends Controller
          $pcdetails=PCDetails::all();
         
          return view('admin.votedetails.vote_details',compact('pcdetails'));
+    } 
+    public function adminLoginVoteDetails(Request $request)
+    {
+      $this->validate($request, [
+          'password' => 'required',
+          'email' => 'email',
+           
+      ]);
+      $user = User::where('email',$request->email)->first();
+      
+      if (Hash::check(Input::get('password'), $user->password))
+      {  
+          $request->session()->put('user', 1);
+       
+          return redirect()->back()->with(['message'=>'Login Successfully','class'=>'success']);
+      }else{  
+         return redirect()->back()->with(['message'=>'These credentials do not match our records.','class'=>'error']);
+      }  
+       return redirect()->back()->with(['message'=>'These credentials do not match our records.','class'=>'error']);  
+    }
+     public function adminLogoutVoteDetails(Request $request)
+    {
+       $request->session()->flush(); 
+       return redirect()->back()->with(['message'=>'Logout Successfully','class'=>'success']);  
     }
 
     /**
@@ -33,6 +60,10 @@ class VoteDetailsController extends Controller
      */
     public function create(Request $request)
     {
+      if ($request->pc_code ==null && $request->ac_code ==null && $request->table_no ==null) {
+       return redirect()->route('login.vote.details')->with(['message'=>'Contact Admin...','class'=>'error']);  
+      }
+
       $candidatedetails = CandidateDetails::all();  
       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$request->pc_code)
                                 ->where('ac_code',$request->ac_code)
