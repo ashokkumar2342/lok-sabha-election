@@ -56,7 +56,10 @@ class VoteDetailsController extends Controller
 
     public function sessionSet(Request $request)
     {  
-        
+      if ($request->pc_code ==null && $request->ac_code ==null && $request->table_no ==null) {
+       return redirect()->route('login.vote.details')->with(['message'=>'required all field','class'=>'error']);  
+      }
+      
         $datas['pc_code']=$request->pc_code;
         $datas['ac_code']=$request->ac_code;
         $datas['table_no']=$request->table_no;

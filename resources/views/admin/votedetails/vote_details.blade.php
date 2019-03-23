@@ -104,7 +104,7 @@
          {{ csrf_field() }}     
         <div class="input-group mb-3">
            
-          <select name="pc_code" id="admin_pc_code" class="form-control" onchange="callAjax(this,'{{ url('search-ac') }}','select_ac_div')">
+          <select name="pc_code" id="pc_code" class="form-control" onchange="callAjax(this,'{{ url('search-ac') }}','select_ac_div')" required>
 
              <option selected="" disabled="">Select PC Code</option>  
             @foreach ($pcdetails as $pcdetail)
@@ -113,13 +113,13 @@
           </select> 
           </div>
            <div class="input-group mb-3" id="select_ac_div"> 
-          <select name="ac_code" id="admin_ac_code" class="form-control" > 
+          <select name="ac_code" id="ac_code" class="form-control" required=""> 
              <option selected="" disabled="">Select AC Code</option> 
              
           </select> 
           </div> 
           <div class="input-group mb-3" id="table_select"> 
-          <select name="table_no" id="admin_table_no" class="form-control" > 
+          <select name="table_no" id="table_no" class="form-control" required=""> 
              <option selected="" disabled="">Select Table No</option> 
              
           </select> 
@@ -167,9 +167,9 @@
  $('#form_vote_login').on('submit', function (e) { 
          e.preventDefault(); 
            const users = {
-             pc_code: $('#admin_pc_code').val(),
-             ac_code: $('#admin_ac_code').val(),
-             table_no: $('#admin_table_no').val(),
+             pc_code: $('#pc_code').val(),
+             ac_code: $('#ac_code').val(),
+             table_no: $('#table_no').val(),
          }
          window.localStorage.setItem('user', JSON.stringify(users)); 
          location.reload();

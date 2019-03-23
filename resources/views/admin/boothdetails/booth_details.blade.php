@@ -43,7 +43,7 @@
                 <div class="col-lg-6 form-group"> 
                   @include('include.select_pc')
                 </div>
-                <div class="col-lg-6 form-group" id="select_ac_div">             
+                <div class="col-lg-6 form-group" id="select_ac_div2">             
                    <select name="ac_code" class="form-control" > 
                       <option selected="" disabled="">Select AC Code</option> 
                       
