@@ -25,18 +25,22 @@
   <div class="login-logo">
     <b>Lok Sabha Election </b>
   </div>
+  @php
+    $data=Session::get('data'); 
+  @endphp
   <!-- /.login-logo -->
   <div class="card">  
     <div class="card-body login-card-body">
       <div class="row text-center">
+       
         {{-- <div class="col-6">
           <input type="submit" value="Admin Login" class="btn btn-success" > 
         </div> --}}
         <div class="col-12">
           <form class="form-horizontal" method="get" action="{{ route('create.vote.details') }}">
-              <input type="hidden" name="pc_code" id="pc_code">  
-              <input type="hidden" name="ac_code" id="ac_code">  
-              <input type="hidden" name="table_no" id="table_no"> 
+              <input type="hidden" name="pc_code" id="pc_code" value="{{ $data['pc_code'] }}">  
+              <input type="hidden" name="ac_code" id="ac_code" value="{{ $data['ac_code'] }}">  
+              <input type="hidden" name="table_no" id="table_no" value="{{ $data['table_no'] }}"> 
              <input type="submit" value="User Login" class="btn btn-success">  
           </form> 
          </div> 
@@ -96,8 +100,8 @@
   @if (Session::get('user')==1) 
   <div class="card">
     <div class="card-body login-card-body"> 
-      <form class="form-horizontal" method="get" id="form_vote_login">
-              
+      <form class="form-horizontal" method="post" id="form_vote_login" action="{{ route('user.session.set') }}">
+         {{ csrf_field() }}     
         <div class="input-group mb-3">
            
           <select name="pc_code" id="admin_pc_code" class="form-control" onchange="callAjax(this,'{{ url('search-ac') }}','select_ac_div')">
@@ -159,7 +163,7 @@
     })
   })
 </script>
-<script>
+{{-- <script>
  $('#form_vote_login').on('submit', function (e) { 
          e.preventDefault(); 
            const users = {
@@ -179,7 +183,7 @@ $.each(data, function(index, val) {
 if ( $('#pc_code').val() != null && $('#ac_code').val() != null && $('#table_no').val() != null) {
    
 }
-</script>
+</script> --}}
 @if(Session::has('message')) 
 <script type="text/javascript">
     Command: toastr["{{ Session::get('class') }}"]("{{ Session::get('message') }}");

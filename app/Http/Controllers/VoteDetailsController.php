@@ -24,7 +24,7 @@ class VoteDetailsController extends Controller
      */
     public function index()
     {
-         $pcdetails=PCDetails::all();
+         $pcdetails=PCDetails::all(); 
         
          return view('admin.votedetails.vote_details',compact('pcdetails'));
     } 
@@ -47,10 +47,21 @@ class VoteDetailsController extends Controller
       }  
        return redirect()->back()->with(['message'=>'These credentials do not match our records.','class'=>'error']);  
     }
-     public function adminLogoutVoteDetails(Request $request)
+
+    public function adminLogoutVoteDetails(Request $request)
     {
-       $request->session()->flush(); 
+       $request->session()->forget('user'); 
        return redirect()->back()->with(['message'=>'Logout Successfully','class'=>'success']);  
+    }
+
+    public function sessionSet(Request $request)
+    {  
+        
+        $datas['pc_code']=$request->pc_code;
+        $datas['ac_code']=$request->ac_code;
+        $datas['table_no']=$request->table_no;
+       $request->session()->put('data', $datas);
+       return redirect()->back()->with(['message'=>'Save Successfully','class'=>'success']);  
     }
 
     /**
