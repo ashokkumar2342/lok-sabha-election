@@ -287,4 +287,39 @@ class BoothDetailsController extends Controller
         $response["msg"]='Delete Successfully';
         return $response;
     }
+    //totalVoteForm
+    public function totalVoteForm()
+    {
+          $boothdetails=BoothDetails::all();
+          $acdetails=ACDetails::all();
+          $pcdetails=PCDetails::all();
+         return view('admin.boothdetails.totat_vote_polled',compact('boothdetails','acdetails','pcdetails'));
+    }
+    //totalVotetable
+   public function totalVotetable(Request $request)
+   {
+       $boothdetails=BoothDetails::where('pc_code',$request->pc_code)->where('ac_code',$request->ac_code)->get();
+       return view('admin.boothdetails.total_vote_table',compact('boothdetails'))->render();
+   }
+    //totalVoteUpdate
+   public function totalVoteUpdate(Request $request)
+   {  
+    foreach ($request->boothdetail_id as $key => $id) {
+      $boothdetails=BoothDetails::find($id);
+      $boothdetails->total_vote_polled=$request->total_vote_polled[$key];
+      $boothdetails->save();
+      
+    }
+      $response=array();
+      $response["status"]=1;
+      $response["msg"]='Save Successfully';
+      return $response; 
+       
+   }
+   //search
+  public function search(Request $request)
+   {
+       $boothdetails=BoothDetails::where('pc_code',$request->id)->where('ac_code',$request->ac_code)->get();     
+       return view('admin.boothdetail.select_booth',compact('boothdetails'))->render();
+   }
 }

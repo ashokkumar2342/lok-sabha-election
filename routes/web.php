@@ -21,6 +21,7 @@ Route::get('/', function () {
     Route::get('login-vote-details', 'VoteDetailsController@index')->name('login.vote.details'); 
     Route::get('create-vote-details', 'VoteDetailsController@create')->name('create.vote.details'); 
     Route::get('search-ac', 'VoteDetailsController@searchAc')->name('search.ac'); 
+     
     Route::get('search-table', 'VoteDetailsController@searchTable')->name('search.table'); 
     Route::get('vote.details.boothno.show/{pc_code}/{ac_code}/{table_no}', 'VoteDetailsController@boothNoShow')->name('vote.details.boothno.show'); 
     Route::post('store-vote-details/{id}', 'VoteDetailsController@store')->name('store.vote.details'); 
@@ -60,6 +61,7 @@ Auth::routes();
        Route::get('edit/{id}', 'ACDetailsController@edit')->name('ac.details.edit');
        Route::get('delete/{id}', 'ACDetailsController@destroy')->name('ac.details.delete');
        Route::post('update/{id}', 'ACDetailsController@update')->name('ac.details.update');
+       Route::get('search-ac2', 'ACDetailsController@searchAc2')->name('search.ac2');
 
   });
   Route::group(['prefix' => 'booth-details'], function() {
@@ -71,6 +73,10 @@ Auth::routes();
        Route::get('edit/{id}', 'BoothDetailsController@edit')->name('booth.details.edit');
        Route::get('delete/{id}', 'BoothDetailsController@destroy')->name('booth.details.delete');
        Route::post('update/{id}', 'BoothDetailsController@update')->name('booth.details.update');
+       Route::get('total-vote-form', 'BoothDetailsController@totalVoteForm')->name('total.vote.form');
+       Route::post('total-vote-update', 'BoothDetailsController@totalVoteUpdate')->name('total.vote.update');
+       Route::get('total-vote-table', 'BoothDetailsController@totalVotetable')->name('total.vote.table');
+       Route::get('search', 'BoothDetailsController@search')->name('booth.details.search');
   });
   Route::group(['prefix' => 'conting-table'], function() {
 

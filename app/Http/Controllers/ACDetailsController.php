@@ -44,6 +44,7 @@ class ACDetailsController extends Controller
        "ac_code" => 'required|unique:a_c_details',
        "ac_name" => 'required',
        "aro_name" => 'nullable|string', 
+       "counting_centre_name" => 'nullable|string', 
        ];
 
       $validator = Validator::make($request->all(),$rules);
@@ -60,6 +61,7 @@ class ACDetailsController extends Controller
         $acdetails->ac_code=$request->ac_code;
         $acdetails->ac_name=$request->ac_name;
         $acdetails->aro_name=$request->aro_name; 
+        $acdetails->counting_centre_name=$request->counting_centre_name; 
         $acdetails->save();
         $response=array();
         $response["status"]=1;
@@ -106,6 +108,7 @@ class ACDetailsController extends Controller
         $acdetails->ac_code=$request->ac_code;
         $acdetails->ac_name=$request->ac_name; 
         $acdetails->aro_name=$request->aro_name; 
+        $acdetails->counting_centre_name=$request->counting_centre_name; 
         $acdetails->save();
         $response=array();
         $response["status"]=1;
@@ -127,5 +130,12 @@ class ACDetailsController extends Controller
         $response["status"]=1;
         $response["msg"]='Delete Successfully';
         return $response;
+    }
+
+    public function searchAc2(Request $request)
+    {
+        $acdetails=ACDetails::where('pc_code',$request->id)->get();
+        
+        return view('admin.acdetails.select_ac',compact('acdetails'))->render();
     }
 }

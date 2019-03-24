@@ -34,7 +34,7 @@
                 </select> 
               </div>
               <div class="col-lg-4 form-group">
-                <label>Table No</label>
+                <label>Total Table No</label>
                  <select name="table_no" class="form-control">
                   <option selected="" disabled="">Select Table No</option>
                   @foreach ($countingtables as $countingtable)

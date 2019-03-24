@@ -43,7 +43,7 @@
                 <div class="col-lg-6 form-group"> 
                   @include('include.select_pc')
                 </div>
-                <div class="col-lg-6 form-group" id="select_ac_div2">             
+                <div class="col-lg-6 form-group" id="select_ac_div">             
                    <select name="ac_code" class="form-control" > 
                       <option selected="" disabled="">Select AC Code</option> 
                       
@@ -145,8 +145,8 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 <script type="text/javascript">
-  $(window).on( "load", function() { 
-    $('#btn_booth_show').click();
-   }) 
+  // $(window).on( "load", function() { 
+  //   $('#btn_booth_show').click();
+  //  }) 
 </script>
 @endpush

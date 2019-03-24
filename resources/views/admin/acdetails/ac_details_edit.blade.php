@@ -32,6 +32,10 @@
                <div class="col-lg-3 form-group">
                 <label>ARO Name</label>
                 <input type="text" class="form-control" value="{{ $acdetail->aro_name }}" name="aro_name"> 
+              </div>
+               <div class="col-lg-12 form-group">
+                <label>ARO Name</label>
+                <input type="text" class="form-control" value="{{ $acdetail->counting_centre_name }}" name="counting_centre_name"> 
               </div> 
               <div class="col-lg-12 text-center form-group">
                 <input type="submit" value="Update" class="btn btn-success">

@@ -5,6 +5,7 @@
       <th>AC Code</th>
       <th>AC Name</th>
       <th>ARO Name</th>
+      <th>Counting Centre Name</th>
       <th>Action</th>
        
     </tr> 
@@ -17,6 +18,7 @@
       <td>{{ $acdetail->ac_code}}</td>
       <td>{{ $acdetail->ac_name}}</td>
       <td>{{ $acdetail->aro_name}}</td>
+      <td>{{ $acdetail->counting_centre_name}}</td>
       <td>
         <a {{-- href="{{ route('candidate.edit') }}" --}} onclick="callPopupLarge(this,'{{ route('ac.details.edit',$acdetail->id) }}')" title="Edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
       

@@ -43,6 +43,10 @@
                 <label>ARO Name</label>
                 <input type="text" class="form-control" maxlength="" name="aro_name"> 
               </div> 
+              <div class="col-lg-12 form-group">
+                <label>Counting Centre Id & Name</label>
+                <input type="text" class="form-control" maxlength="" name="counting_centre_name"> 
+              </div> 
               <div class="col-lg-12 text-center form-group">
                 <input type="submit" class="btn btn-success">
               </div>
