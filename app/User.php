@@ -2,8 +2,10 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use App\ACDetails;
+use App\PCDetails;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -15,8 +17,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','ac_code','pc_code','role'
     ];
+
+        
+         
+
+       public function pcdetails(){
+
+        return $this->hasOne(PCDetails::class,'id','pc_code');
+       } 
+       public function acdetails(){
+
+        return $this->hasOne(ACDetails::class,'id','ac_code');
+       }
 
     /**
      * The attributes that should be hidden for arrays.

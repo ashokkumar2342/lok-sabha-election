@@ -16,8 +16,18 @@
                      
                   </p>
                 </a>
-              
+              @if (Auth::user()->role==1) 
+             
               <li class="nav-item">
+                <a href="{{ route('user.list') }}" class="nav-link">
+                  <i class="nav-icon fa fa-user"></i>
+                  <p>
+                    User Details
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
+               <li class="nav-item">
                 <a href="{{ route('candidate.details') }}" class="nav-link">
                   <i class="nav-icon fa fa-user"></i>
                   <p>
@@ -80,7 +90,7 @@
                   </p>
                 </a>
               </li>
-              
+               @endif
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

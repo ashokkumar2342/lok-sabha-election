@@ -38,6 +38,14 @@ Auth::routes();
  Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
   Route::get('/', 'HomeController@index')->name('home');
 
+  Route::group(['prefix' => 'user'], function() {
+      Route::get('/', 'UserController@index')->name('user.list');
+      Route::post('store', 'UserController@store')->name('user.store');
+      Route::get('delete/{user}', 'UserController@destroy')->name('user.delete');
+      Route::get('edit/{user}', 'UserController@edit')->name('user.edit');
+      Route::get('show', 'UserController@showTable')->name('user.show');
+      Route::post('update/{user}', 'UserController@update')->name('user.update');
+  });
   Route::group(['prefix' => 'condidate-details'], function() {
       Route::get('/', 'CandidateDetailsController@index')->name('candidate.details');
       Route::post('store', 'CandidateDetailsController@store')->name('condidate.store');
