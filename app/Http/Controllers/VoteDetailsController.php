@@ -82,7 +82,7 @@ class VoteDetailsController extends Controller
       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$request->pc_code)
                                 ->where('ac_code',$request->ac_code)
                                 ->where('table_no',$request->table_no)->orderBy('round_no','asc')->get();
-     $activeBoothNo= $countingTableBoothMaps->where('status',0)->first();                       
+     $activeBoothNo = $countingTableBoothMaps->where('status',0)->first();                       
         return view('admin.votedetails.vote_details_create',compact('countingTableBoothMaps','candidatedetails','request','activeBoothNo'));
     }
     //candidateDetails
@@ -169,8 +169,8 @@ class VoteDetailsController extends Controller
     }
 
     public function searchTable(Request $request)
-    {  
-      $countingtables=CountingTable::where('pc_code',$request->pc_code)->where('ac_code',$request->id)->get();
+    {   
+      $countingtables=CountingTable::where('pc_code',$request->pc_code)->where('ac_code',$request->ac_code)->get();
        return view('admin.votedetails.select_table',compact('countingtables'))->render();
     }
 

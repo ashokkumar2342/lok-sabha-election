@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\CountingTable;
+use App\CountingTableBoothMap;
+use Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $user = Auth::user();
+        $countigTables = CountingTable::where('pc_code',$user->pc_code)->where('ac_code',$user->ac_code)->get();
+
+       $countingTableMinStatus=CountingTableBoothMap::where('pc_code',$user->pc_code)
+                                          ->where('ac_code',$user->ac_code)
+                                          ->where('status',1)
+                                          ->get();
+
+       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$user->pc_code)
+                                  ->where('ac_code',$user->ac_code)
+                                  ->where('table_no',1)->orderBy('round_no','asc')->get();
+        $activeBoothNo = $countingTableBoothMaps->where('status',0)->first();
+        return view('admin.dashboard.index',compact('countigTables','activeBoothNo'));
     }
 }
