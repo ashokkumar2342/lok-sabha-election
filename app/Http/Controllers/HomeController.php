@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\CountingTable;
 use App\CountingTableBoothMap;
 use Auth;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -39,5 +41,13 @@ class HomeController extends Controller
                                   ->where('table_no',1)->orderBy('round_no','asc')->get();
         $activeBoothNo = $countingTableBoothMaps->where('status',0)->first();
         return view('admin.dashboard.index',compact('countigTables','activeBoothNo'));
+    }
+
+    //download
+    public function download(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('admin.dashboard.pdf.report');
+        return $pdf->stream();
+         
     }
 }

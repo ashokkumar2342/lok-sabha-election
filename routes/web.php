@@ -37,6 +37,7 @@ Auth::routes();
  
  Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
   Route::get('/', 'HomeController@index')->name('home');
+  Route::get('download', 'HomeController@download')->name('report.download');
 
   Route::group(['prefix' => 'user'], function() {
       Route::get('/', 'UserController@index')->name('user.list');

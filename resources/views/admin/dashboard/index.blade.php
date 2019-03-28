@@ -27,7 +27,7 @@
           <h3 class="card-title"> 
             @foreach ($countigTables as $table) 
             @if ($activeBoothNo !=null)
-              <button type="button" class="btn btn-danger"  id="btn_table_no" button-click="booth_no{{ $activeBoothNo->id }}" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$table->pc_code,$table->ac_code,$table->table_no]) }}','div_booth_no')">T-{{ $table->table_no }}</button>
+              <button type="button" class="btn btn-danger"  id="btn_table_no" button-click="booth_no" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$table->pc_code,$table->ac_code,$table->table_no]) }}','div_booth_no')">T-{{ $table->table_no }}</button>
               @else
               <button type="button" hidden id="btn_booth_no" button-click="booth_no_finish" onclick="callAjax(this,'{{ route('vote.details.boothno.show',[$table->pc_code,$table->ac_code,$table->table_no]) }}','div_booth_no')">Show</button>
               @endif

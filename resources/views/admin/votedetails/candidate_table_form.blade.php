@@ -3,6 +3,15 @@
       Booth Name : <strong>{{ $boothDetail->booth_name }}</strong> , 
       Booth No : <strong>{{ $boothDetail->booth_no }}</strong>, 
       Total Votes : <strong>{{ $boothDetail->total_vote_polled }}</strong>
+      <div class="col d-none d-sm-block">
+         <span style="float:right;">
+
+           <a target="blank" href="{{ route('report.download') }}" class="btn btn-success .d-none .d-sm-block">
+             <i class="fa fa-download"></i>
+           </a>
+         </span>
+      </div>
+      
        <div class="card-tools">
          
        </div>
