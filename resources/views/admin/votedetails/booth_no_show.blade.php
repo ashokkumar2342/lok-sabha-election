@@ -13,11 +13,7 @@
 	  }elseif($countingTableBoothMap->status==0) {
 	  	 $bgColor = 'bg-danger';
 	  }
-  }
-  
-  	 
-  
-		
+  } 
 	@endphp
   <li class="breadcrumb-item"  id="booth_no{{ $countingTableBoothMap->id }}" @if ($bgColor=='bg-warning' || $bgColor=='bg-success' )
   	 onclick="callAjax(this,'{{ route('candidate.vote.details',$countingTableBoothMap->id) }}','candidate_details_form')"

@@ -38,8 +38,8 @@
         </div> --}}
         <div class="col-12">
           <form class="form-horizontal" method="get" action="{{ route('create.vote.details') }}">
-              <input type="hidden" name="pc_code" id="pc_code" value="{{ $data['pc_code'] }}">  
-              <input type="hidden" name="ac_code" id="ac_code" value="{{ $data['ac_code'] }}">  
+              <input type="hidden" name="pc_code"  value="{{ $data['pc_code'] }}">  
+              <input type="hidden" name="ac_code"  value="{{ $data['ac_code'] }}">  
               <input type="hidden" name="table_no" id="table_no" value="{{ $data['table_no'] }}"> 
              <input type="submit" value="User Login" class="btn btn-success">  
           </form> 

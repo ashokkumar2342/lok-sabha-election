@@ -91,6 +91,18 @@
                 </a>
               </li>
                @endif
+               @if (Auth::user()->role==2)
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-user"></i>
+                    <p>
+                      Vote Details
+                      <span class="right badge badge-danger"></span>
+                    </p>
+                  </a>
+                </li>
+               @endif
+
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

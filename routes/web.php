@@ -23,7 +23,7 @@ Route::get('/', function () {
     Route::get('search-ac', 'VoteDetailsController@searchAc')->name('search.ac'); 
      
     Route::get('search-table', 'VoteDetailsController@searchTable')->name('search.table'); 
-    Route::get('vote.details.boothno.show/{pc_code}/{ac_code}/{table_no}', 'VoteDetailsController@boothNoShow')->name('vote.details.boothno.show'); 
+    Route::get('vote-details-boothno-show/{pc_code}/{ac_code}/{table_no}', 'VoteDetailsController@boothNoShow')->name('vote.details.boothno.show'); 
     Route::post('store-vote-details/{id}', 'VoteDetailsController@store')->name('store.vote.details'); 
     Route::get('candidate-vote-details/{id}', 'VoteDetailsController@candidateDetails')->name('candidate.vote.details'); 
     Route::get('candidate-result', 'VoteDetailsController@candidateDetailsRoundFinsh')->name('candidate.vote.details.result'); 
@@ -37,7 +37,10 @@ Auth::routes();
  
  Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
   Route::get('/', 'HomeController@index')->name('home');
-  Route::get('download', 'HomeController@download')->name('report.download');
+  Route::get('download/{pc_code}/{ac_code}/{round_no}/{table_no}', 'HomeController@download')->name('report.download');
+  Route::get('round-wise-download/{ac_code}/{pc_code}/{round_no}', 'HomeController@roundReportDownload')->name('round.report.download');
+  Route::get('vote-details-roudWiseDetails/{pc_code}/{ac_code}/{booth_no}', 'HomeController@roudWiseDetails')->name('vote.details.roud.wise.details');
+  Route::get('aro-candidate-vote-details/{id}', 'HomeController@candidateDetails')->name('aro.candidate.vote.details');
 
   Route::group(['prefix' => 'user'], function() {
       Route::get('/', 'UserController@index')->name('user.list');

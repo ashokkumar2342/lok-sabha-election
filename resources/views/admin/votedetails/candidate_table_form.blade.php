@@ -3,14 +3,7 @@
       Booth Name : <strong>{{ $boothDetail->booth_name }}</strong> , 
       Booth No : <strong>{{ $boothDetail->booth_no }}</strong>, 
       Total Votes : <strong>{{ $boothDetail->total_vote_polled }}</strong>
-      <div class="col d-none d-sm-block">
-         <span style="float:right;">
-
-           <a target="blank" href="{{ route('report.download') }}" class="btn btn-success .d-none .d-sm-block">
-             <i class="fa fa-download"></i>
-           </a>
-         </span>
-      </div>
+       
       
        <div class="card-tools">
          
@@ -18,8 +11,8 @@
      </div>
      <div class="card-body" >
       <form action="{{ route('store.vote.details',$countingTableBoothMap->id) }}" id="form_vote_details"  method="post">
-       {{ csrf_field() }}  
-      <input type="hidden" name="total_vote_polled" id="total_vote_polled" value="{{ $boothDetail->total_vote_polled }}">
+       {{ csrf_field() }}         
+      <input type="hidden" name="total_vote_polled" id="total_vote_polled" value="{{ $boothDetail->total_vote_polled }}">     
        <table class="table table-responsive"> 
              <thead> 
                <tr>

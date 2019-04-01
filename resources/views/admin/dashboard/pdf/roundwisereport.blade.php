@@ -46,7 +46,7 @@
 	  </tr>
 	  <tr>
 	    <td class="tg-21r5" colspan="2">Round No.</td>
-	    <td class="tg-xldj"></td>
+	    <td class="tg-xldj">{{ $round_no }}</td>
 	    <td class="tg-21r5">Round Type</td>
 	    <td class="tg-88nc" colspan="2">12th</td>
 	  </tr>
@@ -66,39 +66,33 @@
 	    <td class="tg-73a0">in this Round</td>
 	    <td class="tg-f4iu">Comulated till this<br>Round</td>
 	  </tr>
+	  
+	  @foreach ($candidateVotes as $candidate_id=>$candidateVote) 
 	  @php
-	  	$total='' ;
-	  	$voteDetails=App\VoteDetails::where(['pc_code'=>$pc_code,'ac_code'=>$ac_code,'table_no'=>$table_no,'round_no'=>$round_no])->get();
-	  	$secoundMax=App\VoteDetails::where(['pc_code'=>$pc_code,'ac_code'=>$ac_code,'table_no'=>$table_no,'round_no'=>$round_no])->orderBy('vote_polled','DESC')->skip(1)->take(1)->first();
-	  	$sum=$voteDetails->sum('vote_polled');
-	  	$max=$voteDetails->max('vote_polled');
-	  @endphp
-	  @foreach ($candidatedetails as $key=>$candidatedetail) 
-	  @php
-	  	$voteDetail=App\VoteDetails::where(['pc_code'=>$pc_code,'ac_code'=>$ac_code,'table_no'=>$table_no,'round_no'=>$round_no,'candidate_id'=>$candidatedetail->id])->first();
+	  	$candidatedetail=App\CandidateDetails::find($candidate_id);
 	  	
-	  	$total+=$voteDetail->vote_polled;
+	  	 
 	  @endphp
 	  <tr>
-	    <td class="tg-0pky">{{ $key+1 }}</td>
+	    <td class="tg-0pky">{{ $candidatedetail->serial_number }}</td>
 	    <td class="tg-0pky" colspan="2">{{  $candidatedetail->candidate_name }}</td>
 	    <td class="tg-c3ow" style="width: 200px">  {{  $candidatedetail->party_name }}</td>
-	    <td class="tg-c3ow">{{ $voteDetail->vote_polled }}</td>
-	    <td class="tg-c3ow">{{ $max }}</td>
+	    <td class="tg-c3ow">{{ $candidateVote }}</td>
+	    <td class="tg-c3ow">{{ $upToCandidateVotes[$candidate_id] }}</td>
 	  </tr>
 	 @endforeach
 	  <tr>
 	    <td class="tg-c3ow" colspan="4">Total Votes Counted</td>
-	    <td class="tg-0pky">{{ $sum }}</td>
-	    <td class="tg-0pky">11111</td>
+	    <td class="tg-0pky">{{ $total }}</td>
+	    <td class="tg-0pky">{{ $upTototal }}</td>
 	  </tr>
 	  <tr>
 	    <td class="tg-c3ow" colspan="4">Lead Margin</td>
-	    <td class="tg-0pky">{{ $max }}</td>
-	    <td class="tg-0pky"></td>
+	    <td class="tg-0pky">{{ $leadMargin }}</td>
+	    <td class="tg-0pky">{{ $UpToLeadMargin }}</td>
 	  </tr>
 	  <tr>
-	    <td class="tg-0pky" colspan="6">{{ $secoundMax->vote_polled}}</td>
+	    <td class="tg-0pky" colspan="6"></td>
 	  </tr>
 	  <tr>
 	    <td class="tg-0pky" colspan="3">RO Signature</td>
