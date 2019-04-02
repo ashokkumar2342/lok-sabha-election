@@ -105,6 +105,11 @@ Auth::routes();
         Route::get('store', 'CountingTableBoothMapController@store')->name('conting.table.booth.map.store');   
         Route::get('show', 'CountingTableBoothMapController@show')->name('conting.table.booth.map.show');   
   });
+  Route::group(['prefix' => 'vote'], function() {
+       
+        Route::get('aro-vote-form', 'VoteDetailsController@VoteForm')->name('aro.vote.form');
+        Route::get('aro-vote-candidate-show/{pc_code}/{ac_code}', 'VoteDetailsController@VoteCandidateFormShow')->name('aro.vote.candidate.show');
+  });
   
  });
  

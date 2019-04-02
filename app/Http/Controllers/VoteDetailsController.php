@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class VoteDetailsController extends Controller
 {
@@ -193,6 +194,26 @@ class VoteDetailsController extends Controller
      * @param  \App\VoteDetails  $voteDetails
      * @return \Illuminate\Http\Response
      */
+    public function VoteForm()
+    {
+       $user=Auth::User(); 
+       $pc_code=$user->pc_code;
+       $ac_code=$user->ac_code;
+       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$user->pc_code)->where('ac_code',$user->ac_code)->get();
+       
+        return view('admin.dashboard.vote.vote_form',compact('countingTableBoothMaps','pc_code','ac_code'));
+    } 
+
+    public function VoteCandidateFormShow(Request $request,$pc_code,$ac_code)
+    {   
+         $candidatedetails = CandidateDetails::all(); 
+         $countingTableBoothMap=CountingTableBoothMap::where('pc_code',$pc_code)
+                                ->where('ac_code',$ac_code)
+                                ->where('booth_no',$request->booth_no)->first();
+        $boothDetail=BoothDetails::where(['pc_code'=>$pc_code,'ac_code'=>$ac_code,'booth_no'=>$request->booth_no])->first();
+        return view('admin.dashboard.vote.candidate_vote_form',compact('countingTableBoothMap','candidatedetails','boothDetail'));
+    }
+
     public function edit(VoteDetails $voteDetails)
     {
         //

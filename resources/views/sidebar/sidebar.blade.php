@@ -93,7 +93,7 @@
                @endif
                @if (Auth::user()->role==2)
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ route('aro.vote.form') }}" class="nav-link">
                     <i class="nav-icon fa fa-user"></i>
                     <p>
                       Vote Details

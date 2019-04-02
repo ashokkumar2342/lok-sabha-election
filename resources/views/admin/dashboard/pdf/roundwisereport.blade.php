@@ -38,23 +38,23 @@
 	    <td class="tg-21r5" colspan="2">District</td>
 	    <td class="tg-kiyi">JHAJJAR</td>
 	    <td class="tg-kiyi">NO.&amp; Name of AC</td>
-	    <td class="tg-kiyi" colspan="2">65 BADLI</td>
+	    <td class="tg-kiyi" colspan="2">{{ $acDetails->ac_code }}</td>
 	  </tr>
 	  <tr>
 	    <td class="tg-quj4" colspan="2"><span style="font-weight:bold">Counting Centre Id &amp; Name</span></td>
-	    <td class="tg-kiyi" colspan="4">Kisan Sadan veterinar hospitas capmsus ,west Bye road </td>
+	    <td class="tg-kiyi" colspan="4">{{ $acDetails->counting_centre_name	 }} </td>
 	  </tr>
 	  <tr>
 	    <td class="tg-21r5" colspan="2">Round No.</td>
 	    <td class="tg-xldj">{{ $round_no }}</td>
 	    <td class="tg-21r5">Round Type</td>
-	    <td class="tg-88nc" colspan="2">12th</td>
+	    <td class="tg-88nc" colspan="2">{{ $round_no }}th</td>
 	  </tr>
 	  <tr>
 	    <td class="tg-6ic8" colspan="2">Date</td>
-	    <td class="tg-7btt">19-12-2019</td>
+	    <td class="tg-7btt">{{ date('d-m-Y',strtotime($voteDetails->created_at)) }}</td>
 	    <td class="tg-6ic8">Time</td>
-	    <td class="tg-7btt" colspan="2">12:30 PM</td>
+	    <td class="tg-7btt" colspan="2">{{ date('h:i A',strtotime($voteDetails->created_at)) }}</td>
 	  </tr>
 	  <tr style="height: 10px">
 	    <td class="tg-fymr" rowspan="2">Sr.<br>No.</td>

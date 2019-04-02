@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ACDetails;
 use App\BoothDetails;
 use App\CandidateDetails;
 use App\CountingTable;
@@ -98,6 +99,11 @@ class HomeController extends Controller
     public function roundReportDownload($pc_code,$ac_code,$round_no){
 
           $candidatedetails = CandidateDetails::all();
+          $voteDetails=VoteDetails::where('pc_code',$pc_code)
+                                               ->where('ac_code',$ac_code)                               
+                                               ->where('round_no',$round_no)  
+                                               ->first();
+        $acDetails = ACDetails::find($ac_code);
           $candidateVotes = array();
           $total = '';
           foreach ($candidatedetails as $key => $candidate) {
@@ -172,7 +178,7 @@ class HomeController extends Controller
                                      ->where('round_no',$round_no) 
                                      ->get();
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('admin.dashboard.pdf.roundwisereport',compact('countingTableBoothMaps','pc_code','ac_code','round_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal'));
+        $pdf->loadView('admin.dashboard.pdf.roundwisereport',compact('countingTableBoothMaps','pc_code','ac_code','round_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal','acDetails','voteDetails'));
         return $pdf->stream();
          
     }
