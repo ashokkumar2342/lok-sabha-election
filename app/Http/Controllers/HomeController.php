@@ -7,6 +7,7 @@ use App\BoothDetails;
 use App\CandidateDetails;
 use App\CountingTable;
 use App\CountingTableBoothMap;
+use App\PCDetails;
 use App\VoteDetails;
 use Auth;
 use Barryvdh\DomPDF\PDF;
@@ -38,6 +39,7 @@ class HomeController extends Controller
         $ac_code =$user->ac_code;
         $candidatedetails = CandidateDetails::all();
         $candidateVotes = array();
+         $pcdetails=PCDetails::all();
         foreach ($candidatedetails as $key => $candidate) {
           $candidateVotes[$candidate->id]= VoteDetails::where('pc_code',$pc_code)
                                            ->where('ac_code',$ac_code)                               
@@ -63,8 +65,8 @@ class HomeController extends Controller
 
       
         $activeBoothNo = $countingTableBoothMaps->where('status',0)->first();
-        return view('admin.dashboard.index',compact('pc_code','ac_code','activeBoothNo','roundNumbers','candidateVotes','candidatedetails'));
-    }
+        return view('admin.dashboard.index',compact('pc_code','ac_code','activeBoothNo','roundNumbers','candidateVotes','candidatedetails','countingTableBoothMaps','pcdetails'));
+    } 
 
     public function roudWiseDetails($pc_code,$ac_code,$round_no){
        $candidatedetails = CandidateDetails::all();
@@ -190,5 +192,41 @@ class HomeController extends Controller
         $pdf->loadView('admin.dashboard.pdf.report',compact('candidatedetails','ac_code','pc_code','round_no','table_no'));
         return $pdf->stream();
          
+    }
+    //admin dashboard result    
+    public  function adminVoteDetailsResult(Request $request){
+     
+      $pc_code =$request->pc_code;
+      $ac_code =$request->ac_code;
+      $candidatedetails = CandidateDetails::all();
+      $candidateVotes = array();
+       $pcdetails=PCDetails::all();
+      foreach ($candidatedetails as $key => $candidate) {
+        $candidateVotes[$candidate->id]= VoteDetails::where('pc_code',$pc_code)
+                                         ->where('ac_code',$ac_code)                               
+                                         ->where('candidate_id',$candidate->id)                               
+                                         ->sum('vote_polled');
+      }
+     $candidateVotes= array_sort($candidateVotes);
+     $candidateVotes=  array_reverse($candidateVotes,true);
+     
+       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$pc_code)
+                                ->where('ac_code',$ac_code) 
+                                ->orderBy('round_no','asc')->get();
+      $roundNumbers=CountingTableBoothMap::where('pc_code',$pc_code)
+                                ->where('ac_code',$ac_code)
+                                ->distinct('round_no')
+                                ->orderBy('round_no','asc')->get(['round_no']);                          
+      $countigTables = CountingTable::where('pc_code',$pc_code)->where('ac_code',$ac_code)->get();
+
+     $countingTableMinStatus=CountingTableBoothMap::where('pc_code',$pc_code)
+                                        ->where('ac_code',$ac_code)
+                                        ->where('status',1)
+                                        ->get();
+
+     
+      $activeBoothNo = $countingTableBoothMaps->where('status',0)->first();
+      return view('admin.dashboard.admin_votedetails_result',compact('pc_code','ac_code','activeBoothNo','roundNumbers','candidateVotes','candidatedetails','countingTableBoothMaps','pcdetails'));
+
     }
 }

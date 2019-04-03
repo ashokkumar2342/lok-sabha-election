@@ -20,12 +20,18 @@
 
     <!-- Main content -->
     <section class="content">
+       @if (Auth::user()->role==1)
+       @include('admin.dashboard.admin_dashboard')      
+       @endif 
+      <!-- /.card -->
 
       <!-- Default box -->
       @if (Auth::user()->role==2)
         @include('admin.dashboard.aro.dashboard')
-      @endif
-      <!-- /.card -->
+      @endif 
+        </div>
+         
+       </div>
 
     </section>
     <!-- /.content -->
