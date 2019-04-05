@@ -7,6 +7,7 @@
        $danger='bg-danger';
        $key ='';
        $leadMargin ='';
+       $printHide='';
      @endphp
     
     @foreach ($candidateVotes as $candidate_id=>$usertotalVote)
@@ -14,6 +15,7 @@
       $key +=1;
       if ($key==1){
        $leadMargin +=$usertotalVote;
+       $printHide+=$usertotalVote;
       }
        if ($key==2){
        $leadMargin -=$usertotalVote;
@@ -42,13 +44,14 @@
       @endforeach
      <!-- /.col -->
      <div class="col-12 col-sm-6 col-md-3">
-       
+       @if ($printHide!=0)
           <span style="float:right;">
-
-       <a target="blank" href="{{ route('round.report.download',[$pc_code,$ac_code,$round_no]) }}" class="btn btn-success .d-none .d-sm-block">
-         <i class="fa fa-print"></i> Print
-       </a>
-     </span>
+           <a target="blank" href="{{ route('round.report.download',[$pc_code,$ac_code,$round_no]) }}" class="btn btn-success .d-none .d-sm-block">
+             <i class="fa fa-print"></i> Print
+           </a>
+         </span>
+       @endif
+     
        
      </div>
      <!-- /.col -->
