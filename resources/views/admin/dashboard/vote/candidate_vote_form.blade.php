@@ -4,7 +4,13 @@
       Booth No : <strong>{{ $boothDetail->booth_no }}</strong>, 
       Total Votes : <strong>{{ $boothDetail->total_vote_polled }}</strong>     
        <div class="card-tools">
-         
+         <span style="float:right;">
+          @if ($countingTableBoothMap->status==1)
+              <a target="blank" href="{{ route('booth.report.download',[$countingTableBoothMap->pc_code,$countingTableBoothMap->ac_code,$countingTableBoothMap->booth_no]) }}" class="btn btn-success .d-none .d-sm-block">
+             <i class="fa fa-print"></i> Print
+           </a>
+          @endif 
+         </span>
        </div>
      </div>
      <div class="card-body" >

@@ -39,6 +39,7 @@ Auth::routes();
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('download/{pc_code}/{ac_code}/{round_no}/{table_no}', 'HomeController@download')->name('report.download');
   Route::get('round-wise-download/{ac_code}/{pc_code}/{round_no}', 'HomeController@roundReportDownload')->name('round.report.download');
+  Route::get('booth-wise-download/{ac_code}/{pc_code}/{booth_no}', 'HomeController@boothReportDownload')->name('booth.report.download');
   Route::get('vote-details-roudWiseDetails/{pc_code}/{ac_code}/{booth_no}', 'HomeController@roudWiseDetails')->name('vote.details.roud.wise.details');
   Route::get('aro-candidate-vote-details/{id}', 'HomeController@candidateDetails')->name('aro.candidate.vote.details'); 
   Route::get('vote-detail/result', 'HomeController@adminVoteDetailsResult')->name('admin.votedetail.result');

@@ -183,13 +183,185 @@ class HomeController extends Controller
         $pdf->loadView('admin.dashboard.pdf.roundwisereport',compact('countingTableBoothMaps','pc_code','ac_code','round_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal','acDetails','voteDetails'));
         return $pdf->stream();
          
+    }//download
+    public function boothReportDownload($pc_code,$ac_code,$booth_no){
+
+          $candidatedetails = CandidateDetails::all();
+          $voteDetails=VoteDetails::where('pc_code',$pc_code)
+                                               ->where('ac_code',$ac_code)                               
+                                               ->where('booth_no',$booth_no)  
+                                               ->first();
+        $acDetails = ACDetails::find($ac_code);
+          $candidateVotes = array();
+          $total = '';
+          foreach ($candidatedetails as $key => $candidate) {
+            $votes=VoteDetails::where('pc_code',$pc_code)
+                                             ->where('ac_code',$ac_code)                               
+                                             ->where('booth_no',$booth_no)                               
+                                             ->where('candidate_id',$candidate->id)                            
+                                             ->sum('vote_polled');
+            $total+=$votes;
+            $candidateVotes[$candidate->id]= $votes;
+          }
+
+        $candidateVotesSort= array_sort($candidateVotes);
+        $candidateVotesReverse=  array_reverse($candidateVotesSort,true);
+        $maxVotes='';
+        $SecoundMaxVotes='';
+        $keyNo ='';
+       
+        foreach ($candidateVotesReverse as $vote) {
+           $keyNo +=1;          
+           if ($keyNo==1){
+            $maxVotes+=$vote;
+           }
+            if ($keyNo==2){
+            $SecoundMaxVotes+=$vote;
+           }  
+           if ($keyNo==3){
+            break;
+           } 
+        }
+        $leadMargin =$maxVotes - $SecoundMaxVotes;
+        //Up to Vote Details        
+        $upToCandidateVotes = array();
+         $upTototal='';
+        $boothArray=array();
+         for ($i=1; $i <=$booth_no; $i++) {
+          $boothArray[]=$i;
+         } 
+          foreach ($candidatedetails as $key => $candidate) {
+              $upToVotes=VoteDetails::where('pc_code',$pc_code)
+                                               ->where('ac_code',$ac_code)                               
+                                               ->whereIn('booth_no',$boothArray)                               
+                                               ->where('candidate_id',$candidate->id)                            
+                                               ->sum('vote_polled');
+              $upTototal+=$upToVotes;
+              $upToCandidateVotes[$candidate->id]= $upToVotes;
+            }
+          
+        $upToCandidateVotesSort= array_sort($upToCandidateVotes);
+         $upToCandidateVotesReverse=  array_reverse($upToCandidateVotesSort,true);
+         $upToMaxVotes='';
+         $upToSecoundMaxVotes='';
+         $upTokeyNo ='';
+         
+         foreach ($upToCandidateVotesReverse as $upToVote) {
+            $upTokeyNo +=1;          
+            if ($upTokeyNo==1){
+             $upToMaxVotes+=$upToVote;
+            }
+             if ($upTokeyNo==2){
+             $upToSecoundMaxVotes+=$upToVote;
+            }  
+            if ($upTokeyNo==3){
+             break;
+            } 
+         }
+
+         $UpToLeadMargin =$upToMaxVotes - $upToSecoundMaxVotes;
+        //end up to vote details
+        $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$pc_code)
+                                     ->where('ac_code',$ac_code)                                    
+                                     ->where('booth_no',$booth_no) 
+                                     ->get();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('admin.dashboard.pdf.boothwisereport',compact('countingTableBoothMaps','pc_code','ac_code','booth_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal','acDetails','voteDetails'));
+        return $pdf->stream();
+         
     }
      //download
-    public function download($ac_code,$pc_code,$round_no,$table_no){
+    public function download($pc_code,$ac_code,$round_no,$table_no){
 
-        $candidatedetails = CandidateDetails::all();
+          $candidatedetails = CandidateDetails::all();
+        $voteDetails=VoteDetails::where('pc_code',$pc_code)
+                                 ->where('ac_code',$ac_code)                               
+                                 ->where('round_no',$round_no)  
+                                 ->where('table_no',$table_no)  
+                                 ->first();
+        $acDetails = ACDetails::find($ac_code);
+          $candidateVotes = array();
+          $total = '';
+          foreach ($candidatedetails as $key => $candidate) {
+            $votes=VoteDetails::where('pc_code',$pc_code)
+                                             ->where('ac_code',$ac_code)                               
+                                             ->where('round_no',$round_no)                               
+                                             ->where('candidate_id',$candidate->id)  
+                                             ->where('table_no',$table_no)                          
+                                             ->sum('vote_polled');
+            $total+=$votes;
+            $candidateVotes[$candidate->id]= $votes;
+          }
+
+        $candidateVotesSort= array_sort($candidateVotes);
+        $candidateVotesReverse=  array_reverse($candidateVotesSort,true);
+        $maxVotes='';
+        $SecoundMaxVotes='';
+        $keyNo ='';
+        
+        foreach ($candidateVotesReverse as $vote) {
+           $keyNo +=1;          
+           if ($keyNo==1){
+            $maxVotes+=$vote;
+           }
+            if ($keyNo==2){
+            $SecoundMaxVotes+=$vote;
+           }  
+           if ($keyNo==3){
+            break;
+           } 
+        }
+        $leadMargin =$maxVotes - $SecoundMaxVotes;
+        //Up to Vote Details        
+        $upToCandidateVotes = array();
+         $upTototal='';
+        $roundArray=array();
+        $tableNoArray=array();
+         for ($i=1; $i <=$round_no; $i++) {
+          $roundArray[]=$i;
+         }
+        for ($t=1; $t <=$table_no; $t++) {
+          $tableNoArray[]=$t;
+         } 
+          foreach ($candidatedetails as $key => $candidate) {
+              $upToVotes=VoteDetails::where('pc_code',$pc_code)
+                                               ->where('ac_code',$ac_code)                               
+                                               ->whereIn('round_no',$roundArray)   
+                                               ->whereIn('table_no',$tableNoArray)                            
+                                               ->where('candidate_id',$candidate->id)                            
+                                               ->sum('vote_polled');
+              $upTototal+=$upToVotes;
+              $upToCandidateVotes[$candidate->id]= $upToVotes;
+            }
+          
+        $upToCandidateVotesSort= array_sort($upToCandidateVotes);
+        $upToCandidateVotesReverse=  array_reverse($upToCandidateVotesSort,true);
+         $upToMaxVotes='';
+         $upToSecoundMaxVotes='';
+         $upTokeyNo ='';
+         
+         foreach ($upToCandidateVotesReverse as $upToVote) {
+            $upTokeyNo +=1;          
+            if ($upTokeyNo==1){
+             $upToMaxVotes+=$upToVote;
+            }
+             if ($upTokeyNo==2){
+             $upToSecoundMaxVotes+=$upToVote;
+            }  
+            if ($upTokeyNo==3){
+             break;
+            } 
+         }
+
+         $UpToLeadMargin =$upToMaxVotes - $upToSecoundMaxVotes;
+        //end up to vote details
+        $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$pc_code)
+                                     ->where('ac_code',$ac_code)                                    
+                                     ->where('round_no',$round_no) 
+                                     ->where('table_no',$table_no)
+                                     ->get();
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('admin.dashboard.pdf.report',compact('candidatedetails','ac_code','pc_code','round_no','table_no'));
+        $pdf->loadView('admin.dashboard.pdf.tablewisereport',compact('countingTableBoothMaps','pc_code','ac_code','round_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal','acDetails','voteDetails'));
         return $pdf->stream();
          
     }
