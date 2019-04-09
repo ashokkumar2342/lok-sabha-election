@@ -6,7 +6,7 @@
       <th>Booth No</th>
       <th>Booth Name</th>
       <th>Booth Location</th>
-      <th>Total Booth Polled</th>
+      <th>Total Vote Polled</th>
        
     </tr> 
   </thead>

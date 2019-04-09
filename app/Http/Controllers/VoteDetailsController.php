@@ -135,6 +135,7 @@ class VoteDetailsController extends Controller
                $voteDetails->table_no=$countingTableBoothMap->table_no;
                $voteDetails->round_no=$countingTableBoothMap->round_no;
                $voteDetails->booth_no=$countingTableBoothMap->booth_no;
+               $voteDetails->booth_id=$countingTableBoothMap->booth_id;
                $voteDetails->candidate_id=$value;
                $voteDetails->vote_polled=$request->vote_polled[$key];
                $voteDetails->status=1;

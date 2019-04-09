@@ -2,9 +2,7 @@
      <!-- fix for small devices only -->
      <div class="clearfix hidden-md-up"></div>
      @php
-       $success='bg-success';
-       $warning='bg-warning';
-       $danger='bg-danger';
+      $className ='';
        $key ='';
        $leadMargin ='';
        $printHide='';
@@ -16,10 +14,15 @@
       if ($key==1){
        $leadMargin +=$usertotalVote;
        $printHide+=$usertotalVote;
+       $className='bg-success';
       }
        if ($key==2){
        $leadMargin -=$usertotalVote;
+       $className='bg-warning';
       }
+      if(2 < $key){
+      $className='bg-danger';
+     }
 
       $candidatedetail=App\CandidateDetails::find($candidate_id);
     
@@ -27,7 +30,7 @@
          <!-- /.col -->
          <div class="col-12 col-sm-6 col-md-3">
            <div class="info-box mb-3">
-             <span class="info-box-icon {{ $key==1?$success:$warning }} elevation-1"><i class="fa fa-user"></i></span>
+             <span class="info-box-icon {{ $className }} elevation-1"><i class="fa fa-user"></i></span>
              <div class="info-box-content">
              <span class="info-box-text">{{ $candidatedetail->candidate_name }}</span>
                 <span class="info-box-text">{{ $candidatedetail->party_name }}</span>

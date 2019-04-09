@@ -122,7 +122,7 @@ class BoothDetailsController extends Controller
                      $rules=[
                      '0' => 'required|numeric',
                      '1' => 'required|numeric',
-                     '2' => 'required|numeric',
+                     '2' => 'required',
                      '3' => 'required|string', 
                      '4' => 'required|string', 
                      '5' => 'nullable|numeric', 

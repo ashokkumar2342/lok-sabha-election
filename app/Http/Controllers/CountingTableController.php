@@ -109,6 +109,7 @@ class CountingTableController extends Controller
             $countingtableboothmap->ac_code=$request->ac_code;
             $countingtableboothmap->table_no=$table_no;
             $countingtableboothmap->round_no=$round; 
+            $countingtableboothmap->booth_id=$value->id; 
             $countingtableboothmap->booth_no=$value->booth_no; 
             $countingtableboothmap->status=0; 
             $countingtableboothmap->save(); 

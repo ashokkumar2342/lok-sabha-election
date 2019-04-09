@@ -65,7 +65,24 @@ class HomeController extends Controller
 
       
         $activeBoothNo = $countingTableBoothMaps->where('status',0)->first();
-        return view('admin.dashboard.index',compact('pc_code','ac_code','activeBoothNo','roundNumbers','candidateVotes','candidatedetails','countingTableBoothMaps','pcdetails'));
+        //round wise table complted count
+        $arrayRoudCompleteTableNoStaus =array();
+        $defultTotalTableNo=  $countigTables->count();
+        $roundtableTotalStatusCount=array();
+        foreach ($roundNumbers as $key => $value) { 
+         $countStatus= CountingTableBoothMap::where('pc_code',$pc_code)
+                                  ->where('ac_code',$ac_code) 
+                                  ->where('round_no',$value->round_no) 
+                                  ->where('status',1) 
+                                   ->count();
+           $roundtableTotalStatusCount[$value->round_no]=$countStatus;                        
+          if ($countStatus==$defultTotalTableNo) {
+              $arrayRoudCompleteTableNoStaus[$value->round_no]=1;
+            } else{
+              $arrayRoudCompleteTableNoStaus[$value->round_no]=0;
+            }                        
+        }        
+        return view('admin.dashboard.index',compact('pc_code','ac_code','activeBoothNo','roundNumbers','candidateVotes','candidatedetails','countingTableBoothMaps','pcdetails','arrayRoudCompleteTableNoStaus','roundtableTotalStatusCount'));
     } 
 
     public function roudWiseDetails($pc_code,$ac_code,$round_no){
