@@ -181,7 +181,7 @@ class VoteDetailsController extends Controller
          
       $countingTableBoothMaps=CountingTableBoothMap::where('pc_code',$pc_code)
                                 ->where('ac_code',$ac_code)
-                                ->where('table_no',$table_no)->get();
+                                ->where('table_no',$table_no)->orderBy('booth_id','asc')->get();
           $response=array();
           $response['status']=1;
            return  view('admin.votedetails.booth_no_show',compact('countingTableBoothMaps','candidatedetails'));
