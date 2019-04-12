@@ -289,7 +289,7 @@ class BoothDetailsController extends Controller
     }
     //totalVoteForm
     public function totalVoteForm()
-    {
+    {     
           $boothdetails=BoothDetails::all();
           $acdetails=ACDetails::all();
           $pcdetails=PCDetails::all();

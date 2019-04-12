@@ -17,12 +17,12 @@
     <section class="content">
 
 
-      <!-- Default box -->
+      @if (Auth::user()->role==1)
+         
       <div class="card"> 
         <div class="card-body">
           <!-- Nav tabs -->
-          <form class="add_form" action="{{ route('booth.store') }}" data-table="dataTables" method="post" button-click="btn_booth_show">
-            {{ csrf_field() }}
+        
             <div class="row">
             <div class="col-lg-6 form-group"> 
              <select name="pc_code" id="pc_code" class="form-control" onchange="callAjax(this,'{{ route('search.ac2') }}','ac_code')">
@@ -40,19 +40,25 @@
              </select> 
             </div> 
               
-            </div>
-             
-             
-          </form>
-
-         
+            </div> 
          
         </div>
         <!-- /.card-body --> 
       </div>
+      @endif
       <!-- /.card -->
-       
+
+        @if (Auth::user()->role==2)
+            @php
+               $user=Auth::user();
+               $pccode=$user->pc_code;
+               $accode=$user->ac_code;
+
+            @endphp
+               <button type="button" hidden="" id="btn_total_vote_polled"  onclick="callAjax(this,'{{ url('dashboard/booth-details/total-vote-table') }}'+'?pc_code='+{{  $pccode }}+'&ac_code='+{{ $accode }},'total_vote_table')" >Show</button>
+        @endif
       <div class="card"> 
+
          <form action="{{ route('total.vote.update') }}" class="add_form" method="post" no-reset="true">
           {{ csrf_field() }} 
         <div class="card-body" id="total_vote_table">
@@ -68,14 +74,8 @@
 
 @endsection
 @push('scripts')
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 <script type="text/javascript">
+  $('#btn_total_vote_polled').click();
    
 </script>
 @endpush

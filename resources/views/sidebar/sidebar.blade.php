@@ -63,15 +63,7 @@
                   </p>
                 </a>
               </li> 
-              <li class="nav-item">
-                <a href="{{ route('total.vote.form') }}" class="nav-link">
-                  <i class="nav-icon fa fa-address-card"></i>
-                  <p>
-                    Total Vote Polled
-                    <span class="right badge badge-danger"></span>
-                  </p>
-                </a>
-              </li> 
+            
               <li class="nav-item">
                 <a href="{{ route('conting.table') }}" class="nav-link">
                   <i class="nav-icon fa fa-table"></i>
@@ -102,6 +94,15 @@
                   </a>
                 </li>
                @endif
+                  <li class="nav-item">
+                <a href="{{ route('total.vote.form') }}" class="nav-link">
+                  <i class="nav-icon fa fa-address-card"></i>
+                  <p>
+                    Total Vote Polled
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
 
             </ul>
           </nav>
