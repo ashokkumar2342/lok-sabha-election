@@ -378,7 +378,7 @@ class HomeController extends Controller
                                      ->where('table_no',$table_no)
                                      ->get();
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('admin.dashboard.pdf.tablewisereport',compact('countingTableBoothMaps','pc_code','ac_code','round_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal','acDetails','voteDetails'));
+        $pdf->loadView('admin.dashboard.pdf.tablewisereport',compact('countingTableBoothMaps','pc_code','ac_code','round_no','table_no','candidateVotes','total','leadMargin','upToCandidateVotes','UpToLeadMargin','upTototal','acDetails','voteDetails'));
         return $pdf->stream();
          
     }

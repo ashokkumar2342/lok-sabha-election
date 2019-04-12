@@ -14,7 +14,7 @@
           </select> 
          </div>
          <div class="col-lg-6 form-group">             
-            <select name="ac_code" class="form-control" id="ac_code"  onchange="callAjax(this,'{{ url('dashboard/vote-detail/result') }}'+'?pc_code='+$('#pc_code').val()+'&ac_code='+$('#ac_code').val(),'vote_details_result','callJqueryDefault')" required=""> 
+            <select name="ac_code" class="form-control" id="ac_code"  onchange="callAjax(this,'{{ url('dashboard/vote-detail/result') }}'+'?pc_code='+$('#pc_code').val()+'&ac_code='+$('#ac_code').val(),'vote_details_result')" required=""> 
              <option selected="" disabled="">Select AC Code</option> 
              
           </select> 

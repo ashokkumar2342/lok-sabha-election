@@ -47,8 +47,8 @@
 	  <tr>
 	    <td class="tg-21r5" colspan="2">Round No.</td>
 	    <td class="tg-xldj">{{ $booth_no }}</td>
-	    <td class="tg-21r5">Round Type</td>
-	    <td class="tg-88nc" colspan="2">{{ $booth_no }}th</td>
+	    <td class="tg-21r5">Booth No.</td>
+	    <td class="tg-88nc" colspan="2">{{ $booth_no }}</td>
 	  </tr>
 	  <tr>
 	    <td class="tg-6ic8" colspan="2">Date</td>

@@ -45,10 +45,10 @@
 	    <td class="tg-kiyi" colspan="4">{{ $acDetails->counting_centre_name	 }} </td>
 	  </tr>
 	  <tr>
-	    <td class="tg-21r5" colspan="2">Round No.</td>
-	    <td class="tg-xldj">{{ $round_no }}</td>
-	    <td class="tg-21r5">Round Type</td>
-	    <td class="tg-88nc" colspan="2">{{ $round_no }}th</td>
+	    <td class="tg-21r5" colspan="2">Table No.</td>
+	    <td class="tg-xldj">{{ $table_no }}</td>
+	    <td class="tg-21r5">Booth No</td>
+	    <td class="tg-88nc" colspan="2">{{ $voteDetails->booth_no }}</td>
 	  </tr>
 	  <tr>
 	    <td class="tg-6ic8" colspan="2">Date</td>
