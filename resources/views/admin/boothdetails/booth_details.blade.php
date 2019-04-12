@@ -98,9 +98,9 @@
                <div class="row">
                  <div class="col-lg-4 form-group">
                  
-                   @include('include.select_pc')
+                   @include('include.select_pc2')
                  </div>
-                 <div class="col-lg-4 form-group" id="select_ac_div">             
+                 <div class="col-lg-4 form-group" id="select_ac_div2">             
                     <select name="ac_code" class="form-control" > 
                        <option selected="" disabled="">Select AC Code</option> 
                        
