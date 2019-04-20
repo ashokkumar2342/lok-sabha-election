@@ -290,7 +290,7 @@ class BoothDetailsController extends Controller
     //totalVoteForm
     public function totalVoteForm()
     {     
-          $boothdetails=BoothDetails::orderBy('booth_id','asc')->get();
+          $boothdetails=BoothDetails::orderBy('id','asc')->get();
           $acdetails=ACDetails::all();
           $pcdetails=PCDetails::all();
          return view('admin.boothdetails.totat_vote_polled',compact('boothdetails','acdetails','pcdetails'));
